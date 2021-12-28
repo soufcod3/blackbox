@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Series index{% endblock %}
+
+{% block body %}
+    <h1>Series index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>StartYear</th>
+                <th>EndYear</th>
+                <th>Synopsis</th>
+                <th>Poster</th>
+                <th>TrailerLink</th>
+                <th>MyRate</th>
+                <th>Popularity</th>
+                <th>MyReview</th>
+                <th>SeasonsCount</th>
+                <th>EpisodesCount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for series in series %}
+            <tr>
+                <td>{{ series.id }}</td>
+                <td>{{ series.title }}</td>
+                <td>{{ series.startYear }}</td>
+                <td>{{ series.endYear }}</td>
+                <td>{{ series.synopsis }}</td>
+                <td>{{ series.poster }}</td>
+                <td>{{ series.trailerLink }}</td>
+                <td>{{ series.myRate }}</td>
+                <td>{{ series.popularity }}</td>
+                <td>{{ series.myReview }}</td>
+                <td>{{ series.seasonsCount }}</td>
+                <td>{{ series.episodesCount }}</td>
+                <td>
+                    <a href="{{ path('series_show', {'id': series.id}) }}">show</a>
+                    <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('series_new') }}">Create new</a>
+{% endblock %}
