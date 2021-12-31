@@ -1,0 +1,17 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+main {
+    background-image: url("https://pbs.twimg.com/media/EZX5clYWAAAYKCQ?format=jpg&name=large");
+    background-position-x: center;
+    background-repeat: no-repeat;
+    height: 700px;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 3rem;
+}

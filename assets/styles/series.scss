@@ -52,21 +52,19 @@ section.results {
     }
 }
 
-section.trailer {
-    width: 100%;
-    overflow: hidden;
-
-}
 
 section.info {
-    display: flex;
-    justify-content: center;
-    height: 190px;
+    height: 450px;
+    .teaser {
+        width: 100vw;
+        overflow: hidden;
+        border-bottom: 2px solid $darkBg;
+    }
     .card {
-        position: absolute;
-        top: 10rem;
+        top: -5rem;
         width: 12rem;
         background-color: transparent;
+        margin: auto;
         .card-img-top {
             outline: 3.5px solid white;
             border-radius: 3px;

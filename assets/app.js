@@ -11,6 +11,8 @@ import './styles/series.scss';
 import './styles/fonts.scss';
 import './styles/_footer.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './styles/_navbar.scss';
+import './styles/home.scss';
 
 // start the Stimulus application
 import './bootstrap';
@@ -18,12 +20,12 @@ import './bootstrap';
 const $ = require('jquery');
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
-require('bootstrap/dist/js/bootstrap.bundle');
+require('bootstrap');
 
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
-$(document).ready(function() {
+$(document).ready(() => {
     $('[data-toggle="popover"]').popover();
 });
