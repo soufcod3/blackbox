@@ -51,3 +51,163 @@ section.results {
         }
     }
 }
+
+section.trailer {
+    width: 100%;
+    overflow: hidden;
+
+}
+
+section.info {
+    display: flex;
+    justify-content: center;
+    height: 190px;
+    .card {
+        position: absolute;
+        top: 10rem;
+        width: 12rem;
+        background-color: transparent;
+        .card-img-top {
+            outline: 3.5px solid white;
+            border-radius: 3px;
+        }
+        .card-body {
+            text-align: center;
+            background-color: transparent;
+            padding: 0.5rem 0 1rem 0;
+            h6 {
+                color: white;
+                font-family: $ubuntuBold;
+                margin-bottom: 0.2rem;
+            }
+            p {
+                color: $lightText;
+                font-size: 0.85rem;
+                font-family: $ubuntuMedium;
+            }
+        }
+    }
+}
+
+section.content {
+    padding: 0 1rem;
+    h4, p {
+        margin: 0;
+        color: white;
+    }
+    h6, hr {
+        color: $lightText;
+    }
+    .container {
+        background: $darkBg;
+        width: 100%;
+    }
+    .stats {
+        height: 4rem;
+        width: 100%;
+        background-color: $darkBg;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border-radius: 3px;
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            h6 {
+                font-size: 0.75rem;
+                margin: 0.5rem 0 0 0;
+            }
+        }
+        hr {
+            width: 2px;
+            height: 3rem;
+        }
+    }
+    .synopsis {
+        margin: 1.5rem 0;
+        color: $lightText;
+        .container {
+            width: 100%;
+            background: $darkBg;
+            padding: 1rem;
+            p {
+                font-size: 0.9rem;
+            }
+        }   
+    }
+
+    .details {
+        margin: 1.5rem 0;
+        color: $lightText;
+        .container {
+            padding: 0;
+            display: flex;
+            justify-content: space-evenly;
+            hr {
+                width: 2px;
+                height: 4rem;
+            }
+            .detail {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                h6 {
+                    font-family: $ubuntuMedium;
+                }
+                p {
+                    font-family: $ubuntuMedium;
+                    color: $lightText;
+                }
+            }
+        }
+    }
+
+    .comments {
+        margin: 1.5rem 0;
+        color: $lightText;
+        .container {
+            padding: 1rem;
+            .comment {
+                .postedBy {
+                    display: flex;
+                    #user {
+                        color: white;
+                        margin-right: 0.5rem;
+                    }
+                }
+                .content {
+                    padding: 0.5rem;
+                }
+                .edit {
+                    display: flex;
+                    justify-content: flex-end;
+                    button {
+                        margin: 0 0.5rem;
+                        padding: 0.3;
+                        p {
+                            font-size: 0.9rem;
+                        }
+                    }
+                    #edit {
+                        background: $editBtn;
+                    }
+                    #delete {
+                        background: $deleteBtn;
+                    }
+                }
+                
+            }
+            .addComment {
+                background: $lightBg;
+                padding: 1rem;
+                p {
+                    padding: 0.5rem;
+                }
+            }
+        }
+
+    }
+}

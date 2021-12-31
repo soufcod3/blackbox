@@ -1,13 +1,109 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Series{% endblock %}
+{% block title %}{{ series.title }}{% endblock %}
 
 {% block body %}
+<section class="trailer">
+    <img src="https://www.gamespot.com/a/uploads/scale_medium/171/1712892/3617668-screen%20shot%202019-12-19%20at%2011.24.25%20pm.png"
+        alt="">
+</section>
+<section class="info">
+    <div class="card">
+        <img class="card-img-top" src=" {{ series.poster }} " alt="Card image cap">
+        <div class="card-body">
+            <h6>{{ series.title }}</h6>
+            <p class="card-text">{{ series.startYear }} - aujourd'hui</p>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="stats">
+        <div class="stat">
+            <h6>MA NOTE</h6>
+            <p>3.5/5</p>
+        </div>
+        <hr>
+        <div class="stat">
+            <h6>POPULARITÉ</h6>
+            <p>82%</p>
+        </div>
+        <hr>
+        <div class="stat">
+            <h6>AVIS</h6>
+            <p>3</p>
+        </div>
+        <hr>
+        <div class="stat">
+            <h6>FAVORIS</h6>
+            <p>2</p>
+        </div>
+    </div>
 
+    <div class="synopsis">
+        <h6>Synopsis</h6>
+        <div class="container">
+            <p>{{ series.synopsis }}</p>
+        </div>
+    </div>
 
-    <a href="{{ path('series_index') }}">back to list</a>
+    <div class="details">
+        <h6>Informations</h6>
+        <div class="container">
+            <div class="detail">
+                <h4>23</h4>
+                <h6>saisons</h6>
+            </div>
+            <hr>
+            <div class="detail">
+                <h4>24</h4>
+                <h6>épisodes</h6>
+            </div>
+            <hr>
+            <div class="detail">
+                <p>Voir sur</p>
+                <p>Allociné</p>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
-
-    {{ include('series/_delete_form.html.twig') }}
+    <div class="comments">
+        <h6>Commentaires (3)</h6>
+        <div class="container">
+            <div class="comment">
+                <div class="postedBy">
+                    <h6 id="user">John85</h6>
+                    <h6>- il y a 2 heures</h6>
+                </div>
+                <div class="content">
+                    <p>Autant la première saison était passable mais intéressante dans l'univers mis en place et la
+                        narration, autant la saison 2 est nanardesque avec tout ce qu'il peut y avoir de clichés et de
+                        recettes héroic fantasy moyennasse..</p>
+                </div>
+                <div class="edit">
+                    <button id="edit" type="button" class="btn">
+                        <p>Éditer</p>
+                    </button>
+                    <button id="delete" type="button" class="btn">
+                        <p>Supprimer</p>
+                    </button>
+                </div>
+                <hr>
+                <div class="postedBy">
+                    <h6 id="user">John85</h6>
+                    <h6>- il y a 2 heures</h6>
+                </div>
+                <div class="content">
+                    <p>Autant la première saison était passable mais intéressante dans l'univers mis en place et la
+                        narration, autant la saison 2 est nanardesque avec tout ce qu'il peut y avoir de clichés et de
+                        recettes héroic fantasy moyennasse..</p>
+                </div>
+                <hr>
+            </div>
+            <div class="addComment">
+                <h4>Ajouter un commentaire</h4>
+                <p><strong>Connectez-vous </strong>pour ajouter un commentaire</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

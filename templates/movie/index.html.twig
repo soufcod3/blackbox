@@ -1,49 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Movie index{% endblock %}
+{% block title %}Tous les films{% endblock %}
 
 {% block body %}
-    <h1>Movie index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Year</th>
-                <th>Synopsis</th>
-                <th>Poster</th>
-                <th>TrailerLink</th>
-                <th>MyRate</th>
-                <th>Popularity</th>
-                <th>MyReview</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<section class="search">
+    <div class="container">
+        <form>
+            <label for="search">Rechercher:</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-success" type="submit">Go</button>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-6">
+                    <label for="genre">Genre:</label>
+                    <select class="form-select">
+                        <option>Tous</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="rate">Popularité:</label>
+                    <select class="form-select">
+                        <option>Toutes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-6">
+                    <label for="year">Année:</label>
+                    <select class="form-select">
+                        <option>Toutes</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="orderBy">Trier par:</label>
+                    <select class="form-select">
+                        <option>Dernier ajout</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<section class="results">
+    <h2>123 films</h2>
+    <div class="cards">
         {% for movie in movies %}
-            <tr>
-                <td>{{ movie.id }}</td>
-                <td>{{ movie.title }}</td>
-                <td>{{ movie.year }}</td>
-                <td>{{ movie.synopsis }}</td>
-                <td>{{ movie.poster }}</td>
-                <td>{{ movie.trailerLink }}</td>
-                <td>{{ movie.myRate }}</td>
-                <td>{{ movie.popularity }}</td>
-                <td>{{ movie.myReview }}</td>
-                <td>
-                    <a href="{{ path('movie_show', {'id': movie.id}) }}">show</a>
-                    <a href="{{ path('movie_edit', {'id': movie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('movie_new') }}">Create new</a>
+        <div class="card">
+            <img class="card-img-top" src=" {{ movie.poster }} " alt="Card image cap">
+            <div class="card-body">
+                <h6>{{ movie.title }}</h6>
+                <p class="card-text">{{ movie.year }}</p>
+            </div>
+        </div>
+        {% endfor %} 
+    </div>       
+</section>
 {% endblock %}
