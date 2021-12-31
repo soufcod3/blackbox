@@ -1,0 +1,53 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+section.search {
+    color: white !important;
+    display: flex;
+    justify-content: center;
+
+    .container {
+        height: 250px;
+        background: $darkBg;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+section.results {
+    h2 {
+        text-align: center;
+    }
+
+    .cards {
+        padding: 1rem;
+        display: grid;
+        //grid-gap: 0.5rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        width: 9rem;
+        background-color: transparent;
+        margin: auto;
+        .card-img-top {
+            outline: 3.5px solid white;
+            border-radius: 3px;
+        }
+        .card-body {
+            background-color: transparent;
+            padding: 0.5rem 0 1rem 0;
+            h6 {
+                color: white;
+                font-family: $ubuntuBold;
+                margin-bottom: 0.2rem;
+            }
+            p {
+                color: $lightText;
+                font-size: 0.85rem;
+                font-family: $ubuntuMedium;
+            }
+        }
+    }
+}

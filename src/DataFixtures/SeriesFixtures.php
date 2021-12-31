@@ -18,6 +18,7 @@ class SeriesFixtures extends Fixture
             $series->setTitle('Série #' . $i);
             $series->setStartYear('2000');
             $series->setSynopsis('Synopsis de la série');
+            $series->setWatchedOn(\DateTime::createFromFormat('d-m-Y', '25-12-2011'));
             $series->setPoster('https://fr.web.img5.acsta.net/c_310_420/pictures/19/12/12/12/13/2421997.jpg');
             $series->setTrailerLink('https://youtu.be/TJFVV2L8GKs');
             $series->setMyRate(4.2);

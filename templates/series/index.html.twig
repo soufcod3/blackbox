@@ -1,55 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Series index{% endblock %}
+{% block title %}Toutes les séries{% endblock %}
 
 {% block body %}
-    <h1>Series index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>StartYear</th>
-                <th>EndYear</th>
-                <th>Synopsis</th>
-                <th>Poster</th>
-                <th>TrailerLink</th>
-                <th>MyRate</th>
-                <th>Popularity</th>
-                <th>MyReview</th>
-                <th>SeasonsCount</th>
-                <th>EpisodesCount</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for series in series %}
-            <tr>
-                <td>{{ series.id }}</td>
-                <td>{{ series.title }}</td>
-                <td>{{ series.startYear }}</td>
-                <td>{{ series.endYear }}</td>
-                <td>{{ series.synopsis }}</td>
-                <td>{{ series.poster }}</td>
-                <td>{{ series.trailerLink }}</td>
-                <td>{{ series.myRate }}</td>
-                <td>{{ series.popularity }}</td>
-                <td>{{ series.myReview }}</td>
-                <td>{{ series.seasonsCount }}</td>
-                <td>{{ series.episodesCount }}</td>
-                <td>
-                    <a href="{{ path('series_show', {'id': series.id}) }}">show</a>
-                    <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('series_new') }}">Create new</a>
+<section class="search">
+    <div class="container">
+        <form>
+            <label for="search">Rechercher:</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-success" type="submit">Go</button>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-6">
+                    <label for="genre">Genre:</label>
+                    <select class="form-select">
+                        <option>Tous</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="rate">Popularité:</label>
+                    <select class="form-select">
+                        <option>Toutes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-6">
+                    <label for="year">Année:</label>
+                    <select class="form-select">
+                        <option>Toutes</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="orderBy">Trier par:</label>
+                    <select class="form-select">
+                        <option>Dernier ajout</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<section class="results">
+    <h2>123 séries</h2>
+    <div class="cards">
+        {% for serie in series %}
+        <div class="card">
+            <img class="card-img-top" src=" {{ serie.poster }} " alt="Card image cap">
+            <div class="card-body">
+                <h6>{{ serie.title }}</h6>
+                <p class="card-text">{{ serie.startYear }}</p>
+            </div>
+        </div>
+        {% endfor %} 
+    </div>       
+</section>
 {% endblock %}

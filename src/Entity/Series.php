@@ -84,6 +84,11 @@ class Series
      */
     private $actors;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $watchedOn;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -261,6 +266,18 @@ class Series
         if ($this->actors->removeElement($actor)) {
             $actor->removeSeries($this);
         }
+
+        return $this;
+    }
+
+    public function getWatchedOn(): ?\DateTimeInterface
+    {
+        return $this->watchedOn;
+    }
+
+    public function setWatchedOn(\DateTimeInterface $watchedOn): self
+    {
+        $this->watchedOn = $watchedOn;
 
         return $this;
     }

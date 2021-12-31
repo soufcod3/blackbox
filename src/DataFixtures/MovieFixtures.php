@@ -19,6 +19,7 @@ class MovieFixtures extends Fixture
             $movie->setTitle('Film #' . $i);
             $movie->setYear('2001');
             $movie->setSynopsis('Synopsis du film');
+            $movie->setWatchedOn(\DateTime::createFromFormat('d-m-Y', '25-12-2011'));
             $movie->setPoster('https://fr.web.img6.acsta.net/c_310_420/medias/nmedia/18/68/61/99/19425646.jpg');
             $movie->setTrailerLink('https://youtu.be/DXPJqRtkDP0');
             $movie->setMyRate(4.5);

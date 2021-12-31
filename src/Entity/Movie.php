@@ -69,6 +69,11 @@ class Movie
      */
     private $actors;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $watchedOn;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -210,6 +215,18 @@ class Movie
         if ($this->actors->removeElement($actor)) {
             $actor->removeMovie($this);
         }
+
+        return $this;
+    }
+
+    public function getWatchedOn(): ?\DateTimeInterface
+    {
+        return $this->watchedOn;
+    }
+
+    public function setWatchedOn(\DateTimeInterface $watchedOn): self
+    {
+        $this->watchedOn = $watchedOn;
 
         return $this;
     }

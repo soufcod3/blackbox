@@ -3,60 +3,7 @@
 {% block title %}Series{% endblock %}
 
 {% block body %}
-    <h1>Series</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ series.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ series.title }}</td>
-            </tr>
-            <tr>
-                <th>StartYear</th>
-                <td>{{ series.startYear }}</td>
-            </tr>
-            <tr>
-                <th>EndYear</th>
-                <td>{{ series.endYear }}</td>
-            </tr>
-            <tr>
-                <th>Synopsis</th>
-                <td>{{ series.synopsis }}</td>
-            </tr>
-            <tr>
-                <th>Poster</th>
-                <td>{{ series.poster }}</td>
-            </tr>
-            <tr>
-                <th>TrailerLink</th>
-                <td>{{ series.trailerLink }}</td>
-            </tr>
-            <tr>
-                <th>MyRate</th>
-                <td>{{ series.myRate }}</td>
-            </tr>
-            <tr>
-                <th>Popularity</th>
-                <td>{{ series.popularity }}</td>
-            </tr>
-            <tr>
-                <th>MyReview</th>
-                <td>{{ series.myReview }}</td>
-            </tr>
-            <tr>
-                <th>SeasonsCount</th>
-                <td>{{ series.seasonsCount }}</td>
-            </tr>
-            <tr>
-                <th>EpisodesCount</th>
-                <td>{{ series.episodesCount }}</td>
-            </tr>
-        </tbody>
-    </table>
 
     <a href="{{ path('series_index') }}">back to list</a>
 
