@@ -101,6 +101,7 @@ section.content {
     .container {
         background: $darkBg;
         width: 100%;
+        border-radius: 4px;
     }
     .stats {
         height: 4rem;
@@ -162,6 +163,33 @@ section.content {
                     color: $lightText;
                 }
             }
+        }
+    }
+
+    .actors {
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            .actors {
+                display: grid;
+                grid-gap: 1rem;
+                grid-template-columns: repeat(2, 1fr);
+                .actor {
+                    .portrait {
+                        width: 8rem;
+                        outline: 2px solid $lightText;
+                    }
+                    p {
+                        color: $lightText;
+                        text-align: center;
+                        margin: 0;
+                        margin-top: 0.5rem;
+                    }
+                }
+                
+            }
+            
         }
     }
 

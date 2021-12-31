@@ -26,6 +26,7 @@ class MovieFixtures extends Fixture
             $movie->setPopularity(93);
             $movie->setMyReview('Un classique à regarder à tout prix !');
             $movie->setCategory($this->getReference('category_0'));
+            $movie->addActor($this->getReference('actor_1'));
 
             $manager->persist($movie);
         }
