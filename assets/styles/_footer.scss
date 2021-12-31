@@ -2,6 +2,30 @@
 @import "~bootstrap/scss/bootstrap";
 
 footer {
-    height: 200px;
     background: $darkBg;
+    text-align: center;
+    padding: 1.5rem;
+    color: $lightText;
+    .logo {
+        padding: 2rem;
+    }
+    .credits {
+        padding: 1rem;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+        .social {
+            text-align: center;
+            margin: 0 1rem;
+        }
+    }
+    h4 {
+        margin: 0;
+    }
+    p {
+        margin: 0;
+        font-size: 0.8rem;
+    }
 }

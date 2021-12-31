@@ -10,6 +10,7 @@ import './styles/app.scss';
 import './styles/series.scss';
 import './styles/fonts.scss';
 import './styles/_footer.scss';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // start the Stimulus application
 import './bootstrap';
