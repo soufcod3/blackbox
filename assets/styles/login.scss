@@ -29,6 +29,7 @@ section.login {
         .btn-login {
             margin-top: 1rem;
             background: rgb(24, 139, 59);
+            color: white;
         }
         .submit-container {
             display: flex;
@@ -40,9 +41,11 @@ section.login {
     }
     .btn-signup {
         background: $lightBg;
+        margin-bottom: 2rem;
     }
     .btn-signin {
         background: $darkBg;
+        margin-bottom: 2rem;
     }
 
     .register {

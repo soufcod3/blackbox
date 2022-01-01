@@ -194,6 +194,11 @@ section.content {
     .comments {
         margin: 1.5rem 0;
         color: $lightText;
+        h5 {
+            margin: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
         .container {
             padding: 1rem;
             .comment {
@@ -229,6 +234,23 @@ section.content {
                 padding: 1rem;
                 p {
                     padding: 0.5rem;
+                }
+                h4 {
+                    margin-bottom: 1rem;
+                }
+                textarea {
+                    margin-top: 1rem;
+                    height: 6rem;
+                }
+                .btn-container {
+                    display: flex;
+                    justify-content: center;
+                }
+                .btn-comment {
+                    background: rgb(82, 31, 83);
+                    color: white;
+                    margin-top: 1rem;
+                    padding: 0.6rem;
                 }
             }
         }

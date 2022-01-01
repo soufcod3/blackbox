@@ -22,10 +22,10 @@
       </li>
       <hr>
       {% if app.user %}
-      <a href="#"><button class="btn btn-profile">{{ app.user.username }}  <i class="bi bi-person-lines-fill"></i>
+      <a href="#"><button class="btn btn-profile">{{ app.user.username }}&nbsp;<i class="bi bi-person-fill"></i>
       </button></a>
       <hr>
-      <a href="{{ path('app_logout') }}"><button class="btn btn-logout">Me déconnecter  <i class="bi bi-box-arrow-right"></i></button></a>
+      <a href="{{ path('app_logout') }}"><button class="btn btn-logout">Déconnexion &nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button></a>
       {% else %}
       <a href="{{ path('login') }}"><button class="btn btn-login">Me connecter</button></a>
       {% endif %}

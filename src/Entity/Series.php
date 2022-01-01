@@ -94,6 +94,11 @@ class Series
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $allocineLink;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -314,6 +319,18 @@ class Series
                 $comment->setSeries(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAllocineLink(): ?string
+    {
+        return $this->allocineLink;
+    }
+
+    public function setAllocineLink(string $allocineLink): self
+    {
+        $this->allocineLink = $allocineLink;
 
         return $this;
     }

@@ -27,6 +27,7 @@ class SeriesFixtures extends Fixture
             $series->setSeasonsCount(3);
             $series->setEpisodesCount(24);
             $series->setCategory($this->getReference('category_5'));
+            $series->setAllocineLink('https://www.allocine.fr/series/ficheserie_gen_cserie=22146.html');
 
             $manager->persist($series);
         }
