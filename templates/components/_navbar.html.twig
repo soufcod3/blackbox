@@ -25,9 +25,9 @@
       <a href="#"><button class="btn btn-profile">{{ app.user.username }}  <i class="bi bi-person-lines-fill"></i>
       </button></a>
       <hr>
-      <a href="{{ path('app_logout') }}"><button class="btn btn-logout">Se déconnecter  <i class="bi bi-box-arrow-right"></i></button></a>
+      <a href="{{ path('app_logout') }}"><button class="btn btn-logout">Me déconnecter  <i class="bi bi-box-arrow-right"></i></button></a>
       {% else %}
-      <a href="{{ path('login') }}"><button class="btn btn-login">Se connecter</button></a>
+      <a href="{{ path('login') }}"><button class="btn btn-login">Me connecter</button></a>
       {% endif %}
     </ul>
   </div>

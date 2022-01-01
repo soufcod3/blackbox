@@ -13,6 +13,7 @@ import './styles/_footer.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './styles/_navbar.scss';
 import './styles/home.scss';
+import './styles/login.scss';
 
 // start the Stimulus application
 import './bootstrap';
