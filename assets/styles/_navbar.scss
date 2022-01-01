@@ -9,6 +9,25 @@
         font-size: 0.8rem;
         padding: 0;
     }
+    hr {
+        height: 2px;
+        width: 40%;
+        color: $lightText;
+    }
+    .btn {
+        font-size: 0.8rem;
+        padding: 0.2rem 0.5rem;
+        color: white;
+    }
+    .btn-login {
+        background: rgb(24, 139, 59);
+    }
+    .btn-profile {
+        background: $lightBg;
+    }
+    .btn-logout{
+        background: rgba(133, 19, 19, 0.5);
+    }
     .navbar-brand{
         margin: 0 1rem;
         font-size: 1.2rem;
