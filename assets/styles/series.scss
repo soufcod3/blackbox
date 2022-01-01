@@ -212,16 +212,14 @@ section.content {
                     justify-content: flex-end;
                     button {
                         margin: 0 0.5rem;
-                        padding: 0.3;
+                        padding: 0.6rem;
                         p {
                             font-size: 0.9rem;
                         }
                     }
-                    #edit {
-                        background: $editBtn;
-                    }
                     #delete {
                         background: $deleteBtn;
+                        color: white;
                     }
                 }
                 

@@ -4,7 +4,7 @@
 
 {% block body %}
 <section class="info">
-    <img class="trailer"src="https://www.gamespot.com/a/uploads/scale_medium/171/1712892/3617668-screen%20shot%202019-12-19%20at%2011.24.25%20pm.png"
+    <img class="teaser"src="https://www.gamespot.com/a/uploads/scale_medium/171/1712892/3617668-screen%20shot%202019-12-19%20at%2011.24.25%20pm.png"
         alt="">
     <div class="card">
         <img class="card-img-top" src=" {{ series.poster }} " alt="Card image cap">
@@ -65,41 +65,35 @@
     </div>
 
     <div class="comments">
-        <h6>Commentaires (3)</h6>
+        <h6>Commentaires</h6>
         <div class="container">
             <div class="comment">
+                {% if comments is empty %}
+                <h5>Il n'y a pas encore de commentaires par ici.</h5>
+                {% else %}
+                {% for comment in comments %}
                 <div class="postedBy">
-                    <h6 id="user">John85</h6>
+                    <h6 id="user">{{ comment.author.username }}</h6>
                     <h6>- il y a 2 heures</h6>
                 </div>
                 <div class="content">
-                    <p>Autant la première saison était passable mais intéressante dans l'univers mis en place et la
-                        narration, autant la saison 2 est nanardesque avec tout ce qu'il peut y avoir de clichés et de
-                        recettes héroic fantasy moyennasse..</p>
+                    <p>{{ comment.comment }}</p>
                 </div>
                 <div class="edit">
-                    <button id="edit" type="button" class="btn">
-                        <p>Éditer</p>
-                    </button>
-                    <button id="delete" type="button" class="btn">
-                        <p>Supprimer</p>
-                    </button>
+                    {{ include('comment/_delete_form.html.twig') }}
                 </div>
                 <hr>
-                <div class="postedBy">
-                    <h6 id="user">John85</h6>
-                    <h6>- il y a 2 heures</h6>
-                </div>
-                <div class="content">
-                    <p>Autant la première saison était passable mais intéressante dans l'univers mis en place et la
-                        narration, autant la saison 2 est nanardesque avec tout ce qu'il peut y avoir de clichés et de
-                        recettes héroic fantasy moyennasse..</p>
-                </div>
-                <hr>
+                {% endfor %}
+                {% endif %}
+                
             </div>
             <div class="addComment">
                 <h4>Ajouter un commentaire</h4>
-                <p><strong>Connectez-vous </strong>pour ajouter un commentaire</p>
+                {% if app.user %}
+                    {{ include('comment/_form.html.twig') }}
+                {% else %}
+                    <p><strong>Connectez-vous </strong>pour ajouter un commentaire</p>
+                {% endif %}
             </div>
         </div>
     </div>

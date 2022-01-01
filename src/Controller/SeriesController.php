@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Series;
+use App\Form\CommentType;
 use App\Form\SeriesType;
 use App\Repository\SeriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -49,12 +51,28 @@ class SeriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="series_show", methods={"GET"})
+     * @Route("/{id}", name="series_show", methods={"GET", "POST"})
      */
-    public function show(Series $series): Response
+    public function show(Series $series, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAuthor($this->getUser());
+            $comment->setSeries($series);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('series_show', ['id' => $series->getId()], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('series/show.html.twig', [
             'series' => $series,
+            'comment' => $comment,
+            'form' => $form->createView(),
+            'comments' => $series->getComments(),
         ]);
     }
 
