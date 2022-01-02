@@ -126,6 +126,33 @@ class SeriesController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/{id}/favorite", name="series_favorite", methods={"GET","POST"})
+     */
+    public function addToFavoriteSeries(Series $seriesId)
+    {
+        $series = $this->getDoctrine()
+            ->getRepository(Series::class)
+            ->findOneBy(['id' => $seriesId]);
+        
+        if ($this->getUser()->isInFavoriteSeries($series)) {
+            $this->getUser()->removeFavoriteSeries($series);
+        } else {
+            $this->getUser()->addFavoriteSeries($series);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($series);
+        $entityManager->flush();
+
+        // AJAX
+        return $this->json([
+            'isInFavoriteSeries' => $this->getUser()->isInFavoriteSeries($series)
+        ]);
+           
+    }
+
+    /**
      * @Route("/{id}", name="series_delete", methods={"POST"})
      */
     public function delete(Request $request, Series $series, EntityManagerInterface $entityManager): Response

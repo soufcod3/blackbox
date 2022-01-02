@@ -104,11 +104,17 @@ class Series
      */
     private $viewers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favoriteSeries")
+     */
+    private $lovers;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->viewers = new ArrayCollection();
+        $this->lovers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -363,6 +369,33 @@ class Series
     {
         if ($this->viewers->removeElement($viewer)) {
             $viewer->removeSeriesWatchlist($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getLovers(): Collection
+    {
+        return $this->lovers;
+    }
+
+    public function addLover(User $lover): self
+    {
+        if (!$this->lovers->contains($lover)) {
+            $this->lovers[] = $lover;
+            $lover->addFavoriteSeries($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLover(User $lover): self
+    {
+        if ($this->lovers->removeElement($lover)) {
+            $lover->removeFavoriteSeries($this);
         }
 
         return $this;

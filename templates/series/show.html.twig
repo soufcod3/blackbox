@@ -56,9 +56,15 @@
         <hr>
         <div class="stat">
             <h6>FAVORIS</h6>
+            {% if app.user %}
+            <a id="favoriteSeries" href="{{ path('series_favorite', {id: series.id})}}">
+                <i class="bi {{ app.user.isInFavoriteSeries(series) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+            </a>
+            {% else %}
             <a href="#">
-                <i class="bi bi-heart"></i>
-            </a>           
+                <i class="bi bi-bookmark-plus"></i>
+            </a>
+            {% endif %}       
         </div>
     </div>
 

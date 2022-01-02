@@ -66,12 +66,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $moviesWatchlist;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Series::class, inversedBy="lovers")
+     */
+    private $favoriteSeries;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Movie::class, inversedBy="lovers")
+     */
+    private $favoriteMovies;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->watchlist = new ArrayCollection();
         $this->moviesWatchlist = new ArrayCollection();
         $this->seriesWatchlist = new ArrayCollection();
+        $this->favoriteSeries = new ArrayCollection();
+        $this->favoriteMovies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -279,6 +291,70 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getIsVerified(): ?bool
     {
         return $this->isVerified;
+    }
+
+    /**
+     * @return Collection|Series[]
+     */
+    public function getFavoriteSeries(): Collection
+    {
+        return $this->favoriteSeries;
+    }
+
+    public function addFavoriteSeries(Series $favoriteSeries): self
+    {
+        if (!$this->favoriteSeries->contains($favoriteSeries)) {
+            $this->favoriteSeries[] = $favoriteSeries;
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteSeries(Series $favoriteSeries): self
+    {
+        $this->favoriteSeries->removeElement($favoriteSeries);
+
+        return $this;
+    }
+
+    public function isInFavoriteSeries(Series $series): bool
+    {
+        if ($this->favoriteSeries->contains($series)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return Collection|Movie[]
+     */
+    public function getFavoriteMovies(): Collection
+    {
+        return $this->favoriteMovies;
+    }
+
+    public function addFavoriteMovie(Movie $favoriteMovie): self
+    {
+        if (!$this->favoriteMovies->contains($favoriteMovie)) {
+            $this->favoriteMovies[] = $favoriteMovie;
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteMovie(Movie $favoriteMovie): self
+    {
+        $this->favoriteMovies->removeElement($favoriteMovie);
+
+        return $this;
+    }
+
+    public function isInFavoriteMovies(Movie $movie): bool
+    {
+        if ($this->favoriteMovies->contains($movie)) {
+            return true;
+        }
+        return false;
     }
 
 }

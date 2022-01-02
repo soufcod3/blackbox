@@ -56,3 +56,29 @@ function addToWatchlist(event) {
             }
         });
 }
+
+// AJAX Favorites
+document.querySelector("#favoriteSeries").addEventListener('click', addToFavoriteSeries);
+
+function addToFavoriteSeries(event) {
+    event.preventDefault();
+    
+    // Get the link object you click in the DOM
+    let favoriteLink = event.currentTarget;
+    let link = favoriteLink.href;
+    // Send an HTTP request with fetch to the URI defined in the href
+    fetch(link)
+    // Extract the JSON from the response
+        .then(res => res.json())
+    // Then update the icon
+        .then(function(res) {
+            let favoriteIcon = favoriteLink.firstElementChild;
+            if (res.isInFavoriteSeries) {
+                favoriteIcon.classList.remove('bi-heart');
+                favoriteIcon.classList.add('bi-heart-fill');
+            } else {
+                favoriteIcon.classList.remove('bi-heart-fill');
+                favoriteIcon.classList.add('bi-heart');
+            }
+        });
+}

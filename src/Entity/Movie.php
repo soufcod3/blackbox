@@ -84,11 +84,17 @@ class Movie
      */
     private $viewers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favoriteMovies")
+     */
+    private $lovers;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->viewers = new ArrayCollection();
+        $this->lovers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -295,6 +301,33 @@ class Movie
     {
         if ($this->viewers->removeElement($viewer)) {
             $viewer->removeMoviesWatchlist($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getLovers(): Collection
+    {
+        return $this->lovers;
+    }
+
+    public function addLover(User $lover): self
+    {
+        if (!$this->lovers->contains($lover)) {
+            $this->lovers[] = $lover;
+            $lover->addFavoriteMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLover(User $lover): self
+    {
+        if ($this->lovers->removeElement($lover)) {
+            $lover->removeFavoriteMovie($this);
         }
 
         return $this;
