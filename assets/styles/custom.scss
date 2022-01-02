@@ -6,7 +6,7 @@ $mainBg: #0D0027;
 $lightBg: #221243;
 
 // Buttons
-$editBtn: #723e4f;
+$editBtn: #726f3e;
 $deleteBtn: #a30f23;
 
 // Text
@@ -14,7 +14,9 @@ $lightText: #857c94;
 
 // Filters
 $lightFilter: invert(53%) sepia(7%) saturate(905%) hue-rotate(221deg) brightness(93%) contrast(87%);
-
+$favoriteFilter: invert(33%) sepia(64%) saturate(7497%) hue-rotate(340deg) brightness(87%) contrast(95%);
+$seenFilter: invert(38%) sepia(72%) saturate(868%) hue-rotate(75deg) brightness(86%) contrast(95%);
+$watchlistFilter: invert(8%) sepia(86%) saturate(1522%) hue-rotate(242deg) brightness(95%) contrast(102%);
 
 // FONTS
 $inikaBold: "Inika Bold";

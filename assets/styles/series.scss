@@ -54,7 +54,7 @@ section.results {
 
 
 section.info {
-    height: 450px;
+    height: 430px;
     .teaser {
         width: 100vw;
         overflow: hidden;
@@ -105,6 +105,16 @@ section.watch {
         .seen, .watchlist {
             text-align: center;
         }
+        .seen {
+            .bi {
+                filter: $seenFilter;
+            }
+        }
+        .watchlist {
+            .bi {
+                filter: $watchlistFilter;
+            }
+        }
         h6 {
             font-size: 0.75rem;
             margin: 0.5rem 0 0rem 0;
@@ -147,6 +157,9 @@ section.content {
             h6 {
                 font-size: 0.75rem;
                 margin: 0.5rem 0 0 0;
+            }
+            .bi {
+                filter: $favoriteFilter;
             }
         }
         hr {
@@ -276,7 +289,6 @@ section.content {
                 textarea {
                     margin-top: 1rem;
                     height: 6rem;
-                    background-color: $lightText;
                 }
                 .btn-container {
                     display: flex;

@@ -47,7 +47,7 @@
     <div class="stats">
         <div class="stat">
             <h6>MA NOTE</h6>
-            <p>3.5/5</p>
+            <p>{{ movie.myRate }}/5</p>
         </div>
         <hr>
         <div class="stat">
@@ -57,7 +57,7 @@
         <hr>
         <div class="stat">
             <h6>AVIS</h6>
-            <p>3</p>
+            <p>{{ comments|length }}</p>
         </div>
         <hr>
         <div class="stat">
@@ -100,7 +100,7 @@
         <div class="container">
             <div class="comment">
                 {% if comments is empty %}
-                <h4><i class="bi bi-emoji-expressionless-fill"></i></h4>
+                <h3><i class="bi bi-emoji-expressionless-fill"></i></h3>
                 <h5>Il n'y a pas encore de commentaires par ici</h5>
                 {% else %}
                 {% for comment in comments %}
