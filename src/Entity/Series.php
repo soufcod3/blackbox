@@ -99,10 +99,16 @@ class Series
      */
     private $allocineLink;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="seriesWatchlist")
+     */
+    private $viewers;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->viewers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -331,6 +337,33 @@ class Series
     public function setAllocineLink(string $allocineLink): self
     {
         $this->allocineLink = $allocineLink;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getViewers(): Collection
+    {
+        return $this->viewers;
+    }
+
+    public function addViewer(User $viewer): self
+    {
+        if (!$this->viewers->contains($viewer)) {
+            $this->viewers[] = $viewer;
+            $viewer->addSeriesWatchlist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeViewer(User $viewer): self
+    {
+        if ($this->viewers->removeElement($viewer)) {
+            $viewer->removeSeriesWatchlist($this);
+        }
 
         return $this;
     }

@@ -79,10 +79,16 @@ class Movie
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="moviesWatchlist")
+     */
+    private $viewers;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->viewers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -262,6 +268,33 @@ class Movie
             if ($comment->getMovie() === $this) {
                 $comment->setMovie(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getViewers(): Collection
+    {
+        return $this->viewers;
+    }
+
+    public function addViewer(User $viewer): self
+    {
+        if (!$this->viewers->contains($viewer)) {
+            $this->viewers[] = $viewer;
+            $viewer->addMoviesWatchlist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeViewer(User $viewer): self
+    {
+        if ($this->viewers->removeElement($viewer)) {
+            $viewer->removeMoviesWatchlist($this);
         }
 
         return $this;

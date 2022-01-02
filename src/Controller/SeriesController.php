@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 /**
  * @Route("/series")
@@ -94,6 +96,33 @@ class SeriesController extends AbstractController
             'series' => $series,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/{id}/watchlist", name="series_watchlist", methods={"GET","POST"})
+     */
+    public function addToWatchlist(Series $seriesId)
+    {
+        $series = $this->getDoctrine()
+            ->getRepository(Series::class)
+            ->findOneBy(['id' => $seriesId]);
+        
+        if ($this->getUser()->isInSeriesWatchlist($series)) {
+            $this->getUser()->removeSeriesWatchlist($series);
+        } else {
+            $this->getUser()->addSeriesWatchlist($series);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($series);
+        $entityManager->flush();
+
+        // AJAX
+        return $this->json([
+            'isInWatchlist' => $this->getUser()->isInSeriesWatchlist($series)
+        ]);
+           
     }
 
     /**

@@ -54,9 +54,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Series::class, inversedBy="viewers")
+     * @ORM\JoinTable(name="seriesWatchlist")
+     */
+    private $seriesWatchlist;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Movie::class, inversedBy="viewers")
+     * @ORM\JoinTable(name="moviesWatchlist")
+     */
+    private $moviesWatchlist;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->watchlist = new ArrayCollection();
+        $this->moviesWatchlist = new ArrayCollection();
+        $this->seriesWatchlist = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,4 +211,74 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Series[]
+     */
+    public function getSeriesWatchlist(): Collection
+    {
+        return $this->seriesWatchlist;
+    }
+
+    public function addSeriesWatchlist(Series $seriesWatchlist): self
+    {
+        if (!$this->seriesWatchlist->contains($seriesWatchlist)) {
+            $this->seriesWatchlist[] = $seriesWatchlist;
+        }
+
+        return $this;
+    }
+
+    public function removeSeriesWatchlist(Series $seriesWatchlist): self
+    {
+        $this->seriesWatchlist->removeElement($seriesWatchlist);
+
+        return $this;
+    }
+
+    public function isInSeriesWatchlist(Series $series): bool
+    {
+        if ($this->seriesWatchlist->contains($series)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return Collection|Movie[]
+     */
+    public function getMoviesWatchlist(): Collection
+    {
+        return $this->moviesWatchlist;
+    }
+
+    public function addMoviesWatchlist(Movie $moviesWatchlist): self
+    {
+        if (!$this->moviesWatchlist->contains($moviesWatchlist)) {
+            $this->moviesWatchlist[] = $moviesWatchlist;
+        }
+
+        return $this;
+    }
+
+    public function removeMoviesWatchlist(Movie $moviesWatchlist): self
+    {
+        $this->moviesWatchlist->removeElement($moviesWatchlist);
+
+        return $this;
+    }
+
+    public function isInMoviesWatchlist(Movie $movie): bool
+    {
+        if ($this->moviesWatchlist->contains($movie)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
 }

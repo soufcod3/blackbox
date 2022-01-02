@@ -26,7 +26,33 @@ require('bootstrap');
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
-
+/* 
 $(document).ready(() => {
     $('[data-toggle="popover"]').popover();
-});
+}); */
+
+// AJAX Watchlist
+document.querySelector("#watchlist").addEventListener('click', addToWatchlist);
+
+function addToWatchlist(event) {
+    event.preventDefault();
+    
+    // Get the link object you click in the DOM
+    let watchlistLink = event.currentTarget;
+    let link = watchlistLink.href;
+    // Send an HTTP request with fetch to the URI defined in the href
+    fetch(link)
+    // Extract the JSON from the response
+        .then(res => res.json())
+    // Then update the icon
+        .then(function(res) {
+            let watchlistIcon = watchlistLink.firstElementChild;
+            if (res.isInWatchlist) {
+                watchlistIcon.classList.remove('bi-bookmark-plus'); // Remove the .bi-heart (empty heart) from classes in <i> element
+                watchlistIcon.classList.add('bi-bookmark-plus-fill'); // Add the .bi-heart-fill (full heart) from classes in <i> element
+            } else {
+                watchlistIcon.classList.remove('bi-bookmark-plus-fill'); // Remove the .bi-heart-fill (full heart) from classes in <i> element
+                watchlistIcon.classList.add('bi-bookmark-plus'); // Add the .bi-heart (empty heart) from classes in <i> element
+            }
+        });
+}

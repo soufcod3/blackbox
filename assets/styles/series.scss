@@ -87,6 +87,36 @@ section.info {
     }
 }
 
+section.watch {
+    padding: 0 7rem;
+    margin-bottom: 1rem;
+    h6, hr {
+        color: $lightText;
+    }
+    .container {
+        height: 3.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: $darkBg;
+        width: 100%;
+        padding: 0;
+        border-radius: 4px;
+        .seen, .watchlist {
+            text-align: center;
+        }
+        h6 {
+            font-size: 0.75rem;
+            margin: 0.5rem 0 0rem 0;
+        }
+        hr {
+            width: 2px;
+            height: 2.5rem;
+        }
+    }
+    
+}
+
 section.content {
     padding: 0 1rem;
     h4, p {

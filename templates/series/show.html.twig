@@ -14,6 +14,29 @@
         </div>
     </div>
 </section>
+<section class="watch">
+    <div class="container">
+        <div class="seen">
+            <h6>DÉJA VU</h6>
+            <a href="#">
+                <i class="bi bi-eye"></i>
+            </a>
+        </div>
+        <hr>
+        <div class="watchlist">
+            <h6>WATCHLIST</h6>
+            {% if app.user %}
+            <a id="watchlist" href="{{ path('series_watchlist', {id: series.id})}}">
+                <i class="bi {{ app.user.isInSeriesWatchlist(series) ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus' }}"></i>
+            </a>
+            {% else %}
+            <a href="#">
+                <i class="bi bi-bookmark-plus"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
 <section class="content">
     <div class="stats">
         <div class="stat">
@@ -33,7 +56,9 @@
         <hr>
         <div class="stat">
             <h6>FAVORIS</h6>
-            <i class="bi bi-heart"></i>
+            <a href="#">
+                <i class="bi bi-heart"></i>
+            </a>           
         </div>
     </div>
 
