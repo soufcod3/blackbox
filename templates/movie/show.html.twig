@@ -14,6 +14,35 @@
         </div>
     </div>
 </section>
+<section class="watch">
+    <div class="container">
+        <div class="seen">
+            <h6>DÉJA VU</h6>
+            {% if app.user %}
+            <a id="seenMovie" href="{{ path('movie_seen', {id: movie.id})}}">
+                <i class="bi {{ app.user.isInSeenMovies(movie) ? 'bi-eye-fill' : 'bi-eye' }}"></i>
+            </a>
+            {% else %}
+            <a href="/login">
+                <i class="bi bi-eye"></i>
+            </a>
+            {% endif %} 
+        </div>
+        <hr>
+        <div class="watchlist">
+            <h6>WATCHLIST</h6>
+            {% if app.user %}
+            <a id="movieWatchlist" href="{{ path('movie_watchlist', {id: movie.id})}}">
+                <i class="bi {{ app.user.isInMoviesWatchlist(movie) ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus' }}"></i>
+            </a>
+            {% else %}
+            <a href="#">
+                <i class="bi bi-bookmark-plus"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
 <section class="content">
     <div class="stats">
         <div class="stat">
@@ -33,7 +62,15 @@
         <hr>
         <div class="stat">
             <h6>FAVORIS</h6>
-            <p>2</p>
+            {% if app.user %}
+            <a id="favoriteMovie" href="{{ path('movie_favorite', {id: movie.id})}}">
+                <i class="bi {{ app.user.isInFavoriteMovies(movie) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+            </a>
+            {% else %}
+            <a href="#">
+                <i class="bi bi-bookmark-plus"></i>
+            </a>
+            {% endif %}     
         </div>
     </div>
 
@@ -59,41 +96,40 @@
     </div>
 
     <div class="comments">
-        <h6>Commentaires (3)</h6>
+        <h6>Commentaires</h6>
         <div class="container">
             <div class="comment">
+                {% if comments is empty %}
+                <h4><i class="bi bi-emoji-expressionless-fill"></i></h4>
+                <h5>Il n'y a pas encore de commentaires par ici</h5>
+                {% else %}
+                {% for comment in comments %}
                 <div class="postedBy">
-                    <h6 id="user">John85</h6>
+                    <h6>Par&nbsp;</h6>
+                    <h6 id="user"> {{ comment.author.username }}</h6>
                     <h6>- il y a 2 heures</h6>
                 </div>
                 <div class="content">
-                    <p>Autant la première saison était passable mais intéressante dans l'univers mis en place et la
-                        narration, autant la saison 2 est nanardesque avec tout ce qu'il peut y avoir de clichés et de
-                        recettes héroic fantasy moyennasse..</p>
+                    <p>{{ comment.comment }}</p>
                 </div>
-                <div class="edit">
-                    <button id="edit" type="button" class="btn">
-                        <p>Éditer</p>
-                    </button>
-                    <button id="delete" type="button" class="btn">
-                        <p>Supprimer</p>
-                    </button>
-                </div>
+                {% if app.user %}
+                    {% if app.user.username == comment.author.username or is_granted("ROLE_ADMIN") %}
+                    <div class="edit">
+                        {{ include('comment/_delete_form.html.twig') }}
+                    </div>
+                    {% endif %}
+                {% endif %}
                 <hr>
-                <div class="postedBy">
-                    <h6 id="user">John85</h6>
-                    <h6>- il y a 2 heures</h6>
-                </div>
-                <div class="content">
-                    <p>Autant la première saison était passable mais intéressante dans l'univers mis en place et la
-                        narration, autant la saison 2 est nanardesque avec tout ce qu'il peut y avoir de clichés et de
-                        recettes héroic fantasy moyennasse..</p>
-                </div>
-                <hr>
+                {% endfor %}
+                {% endif %}
             </div>
             <div class="addComment">
                 <h4>Ajouter un commentaire</h4>
-                <p><strong>Connectez-vous </strong>pour ajouter un commentaire</p>
+                {% if app.user %}
+                    {{ include('comment/_form.html.twig') }}
+                {% else %}
+                    <p><strong><a href="/login">Connecte-toi</a> </strong>pour ajouter un commentaire</p>
+                {% endif %}
             </div>
         </div>
     </div>

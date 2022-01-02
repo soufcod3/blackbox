@@ -121,7 +121,7 @@ class SeriesController extends AbstractController
 
         // AJAX
         return $this->json([
-            'isInWatchlist' => $this->getUser()->isInSeriesWatchlist($series)
+            'isInSeriesWatchlist' => $this->getUser()->isInSeriesWatchlist($series)
         ]);
            
     }

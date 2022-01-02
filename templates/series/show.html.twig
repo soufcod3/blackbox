@@ -32,7 +32,7 @@
         <div class="watchlist">
             <h6>WATCHLIST</h6>
             {% if app.user %}
-            <a id="watchlist" href="{{ path('series_watchlist', {id: series.id})}}">
+            <a id="seriesWatchlist" href="{{ path('series_watchlist', {id: series.id})}}">
                 <i class="bi {{ app.user.isInSeriesWatchlist(series) ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus' }}"></i>
             </a>
             {% else %}
@@ -122,7 +122,8 @@
         <div class="container">
             <div class="comment">
                 {% if comments is empty %}
-                <h5>Il n'y a pas encore de commentaires par ici.</h5>
+                <h3><i class="bi bi-emoji-expressionless-fill"></i></h3>
+                <h5>Il n'y a pas encore de commentaires par ici</h5>
                 {% else %}
                 {% for comment in comments %}
                 <div class="postedBy">
@@ -143,7 +144,6 @@
                 <hr>
                 {% endfor %}
                 {% endif %}
-                
             </div>
             <div class="addComment">
                 <h4>Ajouter un commentaire</h4>

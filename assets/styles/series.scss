@@ -224,13 +224,15 @@ section.content {
     .comments {
         margin: 1.5rem 0;
         color: $lightText;
+        h3, h5 {
+            text-align: center;
+        }
         h5 {
             margin: 1rem;
             margin-bottom: 2rem;
-            text-align: center;
         }
         .container {
-            padding: 1rem;
+            padding: 2rem 1rem;
             .comment {
                 .postedBy {
                     display: flex;
@@ -257,6 +259,9 @@ section.content {
                         color: white;
                     }
                 }
+                .bi-emoji-expressionless-fill {
+                    filter: $lightFilter;
+                }
                 
             }
             .addComment {
@@ -271,6 +276,7 @@ section.content {
                 textarea {
                     margin-top: 1rem;
                     height: 6rem;
+                    background-color: $lightText;
                 }
                 .btn-container {
                     display: flex;
