@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/series")
@@ -24,10 +25,18 @@ class SeriesController extends AbstractController
     /**
      * @Route("/", name="series_index", methods={"GET"})
      */
-    public function index(SeriesRepository $seriesRepository): Response
+    public function index(SeriesRepository $seriesRepository,Request $request, PaginatorInterface $paginator): Response
     {
+        $series = $seriesRepository->findAll();
+
+        $series = $paginator->paginate(
+            $series,
+            $request->query->getInt('page', 1), 
+            6
+        );
+
         return $this->render('series/index.html.twig', [
-            'series' => $seriesRepository->findAll(),
+            'series' => $series,
         ]);
     }
 

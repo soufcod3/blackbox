@@ -50,8 +50,21 @@ section.results {
             }
         }
     }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        font-size: 0.8rem;
+        .page-link {
+            background: $darkBg;
+            border-color: transparent;
+            color: $lightText;
+        }
+        .page-item.active .page-link {
+            background: $lightText;
+            color: $darkBg;
+        }
+    }
 }
-
 
 section.info {
     height: 430px;

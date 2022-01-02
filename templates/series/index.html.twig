@@ -45,7 +45,7 @@
     </div>
 </section>
 <section class="results">
-    <h2>123 séries</h2>
+    <h2>{{  series.getTotalItemCount }} séries</h2>
     <div class="cards">
         {% for serie in series %}
         <div class="card">
@@ -58,6 +58,10 @@
             </div>
         </div>
         {% endfor %} 
-    </div>       
+    </div>
+    <div class="pagination">
+        {% do series.setPageRange(3) %}
+        {{ knp_pagination_render(series, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>
 </section>
 {% endblock %}
