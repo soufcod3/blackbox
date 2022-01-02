@@ -3,9 +3,6 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-{% if error %}
-<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
 <section class="login">
     <h2>Connecte-toi à ton espace personnel</h2>
     <div class="container">
@@ -24,6 +21,12 @@
             <div class="submit-container">
                 <button type="submit" class="btn btn-login">Me connecter</button>
             </div>
+            {% if error %}
+            <div class="error">
+                {# {{ error.messageKey|trans(error.messageData, 'security') }} #}
+                <p>Ton nom d'utilisateur et/ou ton mot de passe est incorrect</p>
+            </div>
+            {% endif %}
         </form>
     </div>
     <h2>Pas encore de compte ?</h2>

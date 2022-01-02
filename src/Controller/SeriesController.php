@@ -7,6 +7,7 @@ use App\Entity\Series;
 use App\Form\CommentType;
 use App\Form\SeriesType;
 use App\Repository\SeriesRepository;
+use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,15 +32,18 @@ class SeriesController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="series_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
         $series = new Series();
         $form = $this->createForm(SeriesType::class, $series);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugify->generate($series->getTitle());
+            $series->setSlug($slug);
             $entityManager->persist($series);
             $entityManager->flush();
 
@@ -53,7 +57,7 @@ class SeriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="series_show", methods={"GET", "POST"})
+     * @Route("/{slug}", name="series_show", methods={"GET", "POST"})
      */
     public function show(Series $series, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -67,7 +71,7 @@ class SeriesController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('series_show', ['id' => $series->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('series_show', ['slug' => $series->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('series/show.html.twig', [
@@ -80,7 +84,8 @@ class SeriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="series_edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{slug}/edit", name="series_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Series $series, EntityManagerInterface $entityManager): Response
     {
@@ -181,6 +186,7 @@ class SeriesController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}", name="series_delete", methods={"POST"})
      */
     public function delete(Request $request, Series $series, EntityManagerInterface $entityManager): Response

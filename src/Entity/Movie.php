@@ -94,6 +94,11 @@ class Movie
      */
     private $seeners;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -362,6 +367,18 @@ class Movie
         if ($this->seeners->removeElement($seener)) {
             $seener->removeSeenMovie($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -38,6 +38,9 @@ section.login {
         .form-label {
             margin: 0;
         }
+        .error {
+            color: rgb(175, 70, 70);
+        }
     }
     .btn-signup {
         background: $lightBg;

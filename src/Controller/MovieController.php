@@ -7,6 +7,7 @@ use App\Entity\Movie;
 use App\Form\CommentType;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
+use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,15 +33,18 @@ class MovieController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="movie_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
         $movie = new Movie();
         $form = $this->createForm(MovieType::class, $movie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugify->generate($movie->getTitle());
+            $movie->setSlug($slug);
             $entityManager->persist($movie);
             $entityManager->flush();
 
@@ -54,7 +58,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="movie_show", methods={"GET", "POST"})
+     * @Route("/{slug}", name="movie_show", methods={"GET", "POST"})
      */
     public function show(Movie $movie, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -69,7 +73,7 @@ class MovieController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('movie_show', ['id' => $movie->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('movie_show', ['slug' => $movie->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('movie/show.html.twig', [
@@ -82,7 +86,8 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="movie_edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{slug}/edit", name="movie_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Movie $movie, EntityManagerInterface $entityManager): Response
     {
@@ -184,6 +189,7 @@ class MovieController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}", name="movie_delete", methods={"POST"})
      */
     public function delete(Request $request, Movie $movie, EntityManagerInterface $entityManager): Response

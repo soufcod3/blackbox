@@ -49,9 +49,11 @@
     <div class="cards">
         {% for serie in series %}
         <div class="card">
-            <img class="card-img-top" src=" {{ serie.poster }} " alt="Card image cap">
+            <a href="{{ path("series_show", { slug: serie.slug }) }}">
+                <img class="card-img-top" src=" {{ serie.poster }} " alt="Card image cap">
+            </a>
             <div class="card-body">
-                <h5>{{ serie.title }}</h5>
+                <h6>{{ serie.title }}</h6>
                 <p class="card-text">{{ serie.startYear }} - aujourd'hui</p>
             </div>
         </div>

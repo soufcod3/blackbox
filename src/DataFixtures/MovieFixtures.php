@@ -5,18 +5,28 @@ namespace App\DataFixtures;
 use App\Entity\Movie;
 use App\DataFixtures\CategoryFixtures;
 use App\DataFixtures\ActorFixtures;
+use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class MovieFixtures extends Fixture
 {
+    private $slugify;
+
+    public function __construct(Slugify $slugify)
+    {
+        // Normal dependency injection in the constructor
+        $this->slugify = $slugify;
+    }
+
     public function load(ObjectManager $manager): void
     {
 
         for ($i = 1; $i <= 30; $i++) {
             $movie = new Movie();
             $movie->setTitle('Film #' . $i);
+            $movie->setSlug($this->slugify->generate($movie->getTitle()));
             $movie->setYear('2001');
             $movie->setSynopsis('Synopsis du film');
             $movie->setWatchedOn(\DateTime::createFromFormat('d-m-Y', '25-12-2011'));

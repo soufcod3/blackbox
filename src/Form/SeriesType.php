@@ -42,7 +42,8 @@ class SeriesType extends AbstractType
                         ->orderBy('u.firstName', 'ASC');
                 },
                 'by_reference' => false,]
-            );
+            )
+            ->add('allocineLink')
             
         ;
     }

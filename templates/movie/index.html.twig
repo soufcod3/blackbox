@@ -49,7 +49,9 @@
     <div class="cards">
         {% for movie in movies %}
         <div class="card">
-            <img class="card-img-top" src=" {{ movie.poster }} " alt="Card image cap">
+            <a href="{{ path("movie_show", { slug: movie.slug }) }}">
+                <img class="card-img-top" src=" {{ movie.poster }} " alt="Card image cap">
+            </a>
             <div class="card-body">
                 <h6>{{ movie.title }}</h6>
                 <p class="card-text">{{ movie.year }}</p>

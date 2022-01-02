@@ -4,18 +4,29 @@ namespace App\DataFixtures;
 
 use App\Entity\Series;
 use App\DataFixtures\CategoryFixtures;
+use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class SeriesFixtures extends Fixture
 {
+
+    private $slugify;
+
+    public function __construct(Slugify $slugify)
+    {
+        // Normal dependency injection in the constructor
+        $this->slugify = $slugify;
+    }
+
     public function load(ObjectManager $manager): void
     {
 
         for ($i = 1; $i <= 30; $i++) {
             $series = new Series();
             $series->setTitle('Série #' . $i);
+            $series->setSlug($this->slugify->generate($series->getTitle()));
             $series->setStartYear('2000');
             $series->setSynopsis('Synopsis de la série');
             $series->setWatchedOn(\DateTime::createFromFormat('d-m-Y', '25-12-2011'));
