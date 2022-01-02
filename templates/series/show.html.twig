@@ -18,9 +18,15 @@
     <div class="container">
         <div class="seen">
             <h6>DÉJA VU</h6>
+            {% if app.user %}
+            <a id="seenSeries" href="{{ path('series_seen', {id: series.id})}}">
+                <i class="bi {{ app.user.isInSeenSeries(series) ? 'bi-eye-fill' : 'bi-eye' }}"></i>
+            </a>
+            {% else %}
             <a href="#">
                 <i class="bi bi-eye"></i>
             </a>
+            {% endif %} 
         </div>
         <hr>
         <div class="watchlist">
@@ -93,6 +99,20 @@
                     <p>Voir sur</p>
                     <p>Allociné</p>
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="actors">
+        <h6>Acteurs</h6>
+        <div class="container">
+            <div class="actors">
+                {% for actor in actors %}
+                <div class="actor">
+                    <img src="{{ actor.portrait }}" alt="" class="portrait">
+                    <p>{{ actor.firstName }} {{ actor.lastName }}</p>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

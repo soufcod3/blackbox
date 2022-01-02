@@ -56,25 +56,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Series::class, inversedBy="viewers")
-     * @ORM\JoinTable(name="seriesWatchlist")
+     * @ORM\JoinTable(name="watchlistSeries")
      */
     private $seriesWatchlist;
 
     /**
      * @ORM\ManyToMany(targetEntity=Movie::class, inversedBy="viewers")
-     * @ORM\JoinTable(name="moviesWatchlist")
+     * @ORM\JoinTable(name="watchlistMovies")
      */
     private $moviesWatchlist;
 
     /**
      * @ORM\ManyToMany(targetEntity=Series::class, inversedBy="lovers")
+     * @ORM\JoinTable(name="favoriteSeries")
      */
     private $favoriteSeries;
 
     /**
      * @ORM\ManyToMany(targetEntity=Movie::class, inversedBy="lovers")
+     * @ORM\JoinTable(name="favoriteMovies")
      */
     private $favoriteMovies;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Series::class, inversedBy="seeners")
+     * @ORM\JoinTable(name="seenSeries")
+     */
+    private $seenSeries;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Movie::class, inversedBy="seeners")
+     * @ORM\JoinTable(name="seenMovies")
+     */
+    private $seenMovies;
 
     public function __construct()
     {
@@ -84,6 +98,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->seriesWatchlist = new ArrayCollection();
         $this->favoriteSeries = new ArrayCollection();
         $this->favoriteMovies = new ArrayCollection();
+        $this->seenSeries = new ArrayCollection();
+        $this->seenMovies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -352,6 +368,70 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isInFavoriteMovies(Movie $movie): bool
     {
         if ($this->favoriteMovies->contains($movie)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return Collection|Series[]
+     */
+    public function getSeenSeries(): Collection
+    {
+        return $this->seenSeries;
+    }
+
+    public function addSeenSeries(Series $seenSeries): self
+    {
+        if (!$this->seenSeries->contains($seenSeries)) {
+            $this->seenSeries[] = $seenSeries;
+        }
+
+        return $this;
+    }
+
+    public function removeSeenSeries(Series $seenSeries): self
+    {
+        $this->seenSeries->removeElement($seenSeries);
+
+        return $this;
+    }
+
+    public function isInSeenSeries(Series $series): bool
+    {
+        if ($this->seenSeries->contains($series)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return Collection|Movie[]
+     */
+    public function getSeenMovies(): Collection
+    {
+        return $this->seenMovies;
+    }
+
+    public function addSeenMovie(Movie $seenMovie): self
+    {
+        if (!$this->seenMovies->contains($seenMovie)) {
+            $this->seenMovies[] = $seenMovie;
+        }
+
+        return $this;
+    }
+
+    public function removeSeenMovie(Movie $seenMovie): self
+    {
+        $this->seenMovies->removeElement($seenMovie);
+
+        return $this;
+    }
+
+    public function isInSeenMovies(Movie $movie): bool
+    {
+        if ($this->seenMovies->contains($movie)) {
             return true;
         }
         return false;

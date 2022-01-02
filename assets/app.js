@@ -31,10 +31,10 @@ $(document).ready(() => {
     $('[data-toggle="popover"]').popover();
 }); */
 
-// AJAX Watchlist
-document.querySelector("#watchlist").addEventListener('click', addToWatchlist);
+// AJAX seriesWatchlist
+document.querySelector("#watchlist").addEventListener('click', addToSeriesWatchlist);
 
-function addToWatchlist(event) {
+function addToSeriesWatchlist(event) {
     event.preventDefault();
     
     // Get the link object you click in the DOM
@@ -57,7 +57,7 @@ function addToWatchlist(event) {
         });
 }
 
-// AJAX Favorites
+// AJAX favoriteSeries
 document.querySelector("#favoriteSeries").addEventListener('click', addToFavoriteSeries);
 
 function addToFavoriteSeries(event) {
@@ -79,6 +79,32 @@ function addToFavoriteSeries(event) {
             } else {
                 favoriteIcon.classList.remove('bi-heart-fill');
                 favoriteIcon.classList.add('bi-heart');
+            }
+        });
+}
+
+// AJAX seenSeries
+document.querySelector("#seenSeries").addEventListener('click', addToSeenSeries);
+
+function addToSeenSeries(event) {
+    event.preventDefault();
+    
+    // Get the link object you click in the DOM
+    let seenLink = event.currentTarget;
+    let link = seenLink.href;
+    // Send an HTTP request with fetch to the URI defined in the href
+    fetch(link)
+    // Extract the JSON from the response
+        .then(res => res.json())
+    // Then update the icon
+        .then(function(res) {
+            let seenIcon = seenLink.firstElementChild;
+            if (res.isInSeenSeries) {
+                seenIcon.classList.remove('bi-eye');
+                seenIcon.classList.add('bi-eye-fill');
+            } else {
+                seenIcon.classList.remove('bi-eye-fill');
+                seenIcon.classList.add('bi-eye');
             }
         });
 }

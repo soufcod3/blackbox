@@ -72,6 +72,7 @@ class SeriesController extends AbstractController
 
         return $this->render('series/show.html.twig', [
             'series' => $series,
+            'actors' =>$series->getActors(),
             'comment' => $comment,
             'form' => $form->createView(),
             'comments' => $series->getComments(),
@@ -102,7 +103,7 @@ class SeriesController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/{id}/watchlist", name="series_watchlist", methods={"GET","POST"})
      */
-    public function addToWatchlist(Series $seriesId)
+    public function addToSeriesWatchlist(Series $seriesId)
     {
         $series = $this->getDoctrine()
             ->getRepository(Series::class)
@@ -148,6 +149,33 @@ class SeriesController extends AbstractController
         // AJAX
         return $this->json([
             'isInFavoriteSeries' => $this->getUser()->isInFavoriteSeries($series)
+        ]);
+           
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/{id}/seen", name="series_seen", methods={"GET","POST"})
+     */
+    public function addToSeenSeries(Series $seriesId)
+    {
+        $series = $this->getDoctrine()
+            ->getRepository(Series::class)
+            ->findOneBy(['id' => $seriesId]);
+        
+        if ($this->getUser()->isInSeenSeries($series)) {
+            $this->getUser()->removeSeenSeries($series);
+        } else {
+            $this->getUser()->addSeenSeries($series);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($series);
+        $entityManager->flush();
+
+        // AJAX
+        return $this->json([
+            'isInSeenSeries' => $this->getUser()->isInSeenSeries($series)
         ]);
            
     }

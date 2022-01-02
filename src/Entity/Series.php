@@ -109,12 +109,18 @@ class Series
      */
     private $lovers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="seenSeries")
+     */
+    private $seeners;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->viewers = new ArrayCollection();
         $this->lovers = new ArrayCollection();
+        $this->seeners = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -396,6 +402,33 @@ class Series
     {
         if ($this->lovers->removeElement($lover)) {
             $lover->removeFavoriteSeries($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getSeeners(): Collection
+    {
+        return $this->seeners;
+    }
+
+    public function addSeener(User $seener): self
+    {
+        if (!$this->seeners->contains($seener)) {
+            $this->seeners[] = $seener;
+            $seener->addSeenSeries($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeener(User $seener): self
+    {
+        if ($this->seeners->removeElement($seener)) {
+            $seener->removeSeenSeries($this);
         }
 
         return $this;
