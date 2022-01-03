@@ -19,14 +19,9 @@ class SeriesType extends AbstractType
             ->add('category', null, [
                 'choice_label' => 'name',
             ])
-            ->add('startYear')
-            ->add('endYear')
-            ->add('synopsis')
-            ->add('poster')
-            ->add('trailerLink')
-            ->add('myRate')
-            ->add('popularity')
             ->add('myReview')
+            ->add('myRate')
+            ->add('endYear')
             ->add('seasonsCount')
             ->add('episodesCount')
             ->add('actors', EntityType::class, [
@@ -43,8 +38,7 @@ class SeriesType extends AbstractType
                 },
                 'by_reference' => false,]
             )
-            ->add('allocineLink')
-            
+            ->add('allocineLink')   
         ;
     }
 

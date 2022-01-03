@@ -50,11 +50,16 @@
         {% for serie in series %}
         <div class="card">
             <a href="{{ path("series_show", { slug: serie.slug }) }}">
-                <img class="card-img-top" src=" {{ serie.poster }} " alt="Card image cap">
+                <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ serie.poster }}" alt="Card image cap">
             </a>
             <div class="card-body">
                 <h6>{{ serie.title }}</h6>
-                <p class="card-text">{{ serie.startYear }} - aujourd'hui</p>
+                <p class="card-text">{{ serie.startYear }}
+                {% if serie.endYear %}
+                    - {{ serie.endYear }}
+                {% else %}
+                    - aujourd'hui
+                {% endif %}</p></p>
             </div>
         </div>
         {% endfor %} 

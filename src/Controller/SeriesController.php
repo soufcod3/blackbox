@@ -7,6 +7,7 @@ use App\Entity\Series;
 use App\Form\CommentType;
 use App\Form\SeriesType;
 use App\Repository\SeriesRepository;
+use App\Service\CallApiService;
 use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +30,10 @@ class SeriesController extends AbstractController
     {
         $series = $seriesRepository->findAll();
 
+        /* foreach ($series as $serie) {
+            $seriesAPI[] = $callApiService->getPopularity($serie);
+        } */
+        //dd($seriesAPI);
         $series = $paginator->paginate(
             $series,
             $request->query->getInt('page', 1), 
@@ -37,6 +42,7 @@ class SeriesController extends AbstractController
 
         return $this->render('series/index.html.twig', [
             'series' => $series,
+            //'api' => $seriesAPI,
         ]);
     }
 
@@ -44,7 +50,7 @@ class SeriesController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="series_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify, CallApiService $callApiService): Response
     {
         $series = new Series();
         $form = $this->createForm(SeriesType::class, $series);
@@ -52,7 +58,17 @@ class SeriesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = $slugify->generate($series->getTitle());
+            // chercher ici poster, synopsis etc. pour inclure directement dans la base de donnée
             $series->setSlug($slug);
+            $entityManager->persist($series);
+
+            $seriesAPI = $callApiService->getPopularity($series);
+            $series->setPoster($seriesAPI['poster_path']);
+            $series->setStartYear(substr($seriesAPI['first_air_date'], 0, 4));
+            $series->setSynopsis($seriesAPI['overview']);
+            $series->setBackground($seriesAPI['backdrop_path']);
+            $series->setPopularity($seriesAPI['vote_average'] * 10);
+
             $entityManager->persist($series);
             $entityManager->flush();
 
@@ -68,12 +84,15 @@ class SeriesController extends AbstractController
     /**
      * @Route("/{slug}", name="series_show", methods={"GET", "POST"})
      */
-    public function show(Series $series, Request $request, EntityManagerInterface $entityManager): Response
+    public function show(Series $series, Request $request, EntityManagerInterface $entityManager, CallApiService $callApiService): Response
     {
+        $seriesAPI = $callApiService->getPopularity($series);
+
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
+        //dd($seriesAPI);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setAuthor($this->getUser());
             $comment->setSeries($series);
@@ -82,13 +101,14 @@ class SeriesController extends AbstractController
 
             return $this->redirectToRoute('series_show', ['slug' => $series->getSlug()], Response::HTTP_SEE_OTHER);
         }
-
+        //dd($seriesAPI['results'][0]);
         return $this->render('series/show.html.twig', [
             'series' => $series,
             'actors' =>$series->getActors(),
             'comment' => $comment,
             'form' => $form->createView(),
             'comments' => $series->getComments(),
+            'api' => $seriesAPI,
         ]);
     }
 

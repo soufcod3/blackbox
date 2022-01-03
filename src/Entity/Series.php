@@ -35,19 +35,19 @@ class Series
     private $endYear;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=5000)
      */
     private $synopsis;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $poster;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $trailerLink;
+    private $background;
 
     /**
      * @ORM\Column(type="integer")
@@ -193,14 +193,14 @@ class Series
         return $this;
     }
 
-    public function getTrailerLink(): ?string
+    public function getBackground(): ?string
     {
-        return $this->trailerLink;
+        return $this->background;
     }
 
-    public function setTrailerLink(?string $trailerLink): self
+    public function setBackground(string $background): self
     {
-        $this->trailerLink = $trailerLink;
+        $this->background = $background;
 
         return $this;
     }
