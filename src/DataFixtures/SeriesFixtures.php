@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Series;
 use App\DataFixtures\CategoryFixtures;
+use App\Service\CallApiService;
 use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -13,27 +14,37 @@ class SeriesFixtures extends Fixture
 {
 
     private $slugify;
+    private $callApiService;
+    public const TITLES = [
+        'Breaking Bad',
+        'Heroes',
+        'Mindhunter',
+        'Suits',
+        'The Walking Dead',
+        'My Name',
+        'Squid Game',
+    ];
 
-    public function __construct(Slugify $slugify)
+    public function __construct(Slugify $slugify, CallApiService $callApiService)
     {
         // Normal dependency injection in the constructor
         $this->slugify = $slugify;
+
+        $this->callApiService = $callApiService;
     }
 
     public function load(ObjectManager $manager): void
     {
-
-        for ($i = 1; $i <= 30; $i++) {
+        foreach (self::TITLES as $title) {
             $series = new Series();
-            $series->setTitle('Série #' . $i);
+            $series->setTitle($title);
             $series->setSlug($this->slugify->generate($series->getTitle()));
-            $series->setStartYear('2000');
-            $series->setSynopsis('Synopsis de la série');
-            $series->setWatchedOn(\DateTime::createFromFormat('d-m-Y', '25-12-2011'));
-            $series->setPoster('https://fr.web.img5.acsta.net/c_310_420/pictures/19/12/12/12/13/2421997.jpg');
-            $series->setTrailerLink('https://youtu.be/TJFVV2L8GKs');
-            $series->setMyRate(4.2);
-            $series->setPopularity(82);
+            $series->setStartYear(substr($this->callApiService->getSeriesData($series)['first_air_date'], 0, 4));
+            $series->setSynopsis($this->callApiService->getSeriesData($series)['overview']);
+            $series->setPoster($this->callApiService->getSeriesData($series)['poster_path']);
+            $series->setBackground($this->callApiService->getSeriesData($series)['backdrop_path']);
+            $series->setPopularity($this->callApiService->getSeriesData($series)['vote_average'] * 10);
+            $series->setMyRate(3.3);
             $series->setMyReview('J\'ai trouvé la série pas mal du tout');
             $series->setSeasonsCount(3);
             $series->setEpisodesCount(24);

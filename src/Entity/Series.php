@@ -40,12 +40,12 @@ class Series
     private $synopsis;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $poster;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $background;
 
@@ -83,11 +83,6 @@ class Series
      * @ORM\ManyToMany(targetEntity=Actor::class, mappedBy="series")
      */
     private $actors;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $watchedOn;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="series")
@@ -300,18 +295,6 @@ class Series
         if ($this->actors->removeElement($actor)) {
             $actor->removeSeries($this);
         }
-
-        return $this;
-    }
-
-    public function getWatchedOn(): ?\DateTimeInterface
-    {
-        return $this->watchedOn;
-    }
-
-    public function setWatchedOn(\DateTimeInterface $watchedOn): self
-    {
-        $this->watchedOn = $watchedOn;
 
         return $this;
     }

@@ -7,8 +7,10 @@ use App\Entity\Movie;
 use App\Form\CommentType;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
+use App\Service\CallApiService;
 use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,10 +27,18 @@ class MovieController extends AbstractController
     /**
      * @Route("/", name="movie_index", methods={"GET"})
      */
-    public function index(MovieRepository $movieRepository): Response
+    public function index(MovieRepository $movieRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $movies = $movieRepository->findAll();
+
+        $movies = $paginator->paginate(
+            $movies,
+            $request->query->getInt('page', 1), 
+            6 //limit
+        );
+
         return $this->render('movie/index.html.twig', [
-            'movies' => $movieRepository->findAll(),
+            'movies' => $movies,
         ]);
     }
 
@@ -36,7 +46,7 @@ class MovieController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="movie_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify, CallApiService $callApiService): Response
     {
         $movie = new Movie();
         $form = $this->createForm(MovieType::class, $movie);
@@ -45,6 +55,15 @@ class MovieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = $slugify->generate($movie->getTitle());
             $movie->setSlug($slug);
+            $entityManager->persist($movie);
+
+            $movieAPI = $callApiService->getMovieData($movie);
+            $movie->setPoster($movieAPI['poster_path']);
+            $movie->setYear(substr($movieAPI['release_date'], 0, 4));
+            $movie->setSynopsis($movieAPI['overview']);
+            $movie->setBackground($movieAPI['backdrop_path']);
+            $movie->setPopularity($movieAPI['vote_average'] * 10);
+
             $entityManager->persist($movie);
             $entityManager->flush();
 
@@ -60,8 +79,12 @@ class MovieController extends AbstractController
     /**
      * @Route("/{slug}", name="movie_show", methods={"GET", "POST"})
      */
-    public function show(Movie $movie, Request $request, EntityManagerInterface $entityManager): Response
+    public function show(Movie $movie, Request $request, EntityManagerInterface $entityManager, CallApiService $callApiService): Response
     {
+
+        $movieAPI = $callApiService->getMovieData($movie);
+
+        //dd($movieAPI);
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);

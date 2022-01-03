@@ -4,10 +4,10 @@
 
 {% block body %}
 <section class="info">
-    <img class="teaser" src="https://www.gamespot.com/a/uploads/scale_medium/171/1712892/3617668-screen%20shot%202019-12-19%20at%2011.24.25%20pm.png"
+    <img class="teaser" src="https://image.tmdb.org/t/p/original{{ movie.background }}"
         alt="">
     <div class="card">
-        <img class="card-img-top" src=" {{ movie.poster }} " alt="Card image cap">
+        <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ movie.poster }}" alt="Affiche de {{ movie.title }}">
         <div class="card-body">
             <h6>{{ movie.title }}</h6>
             <p class="card-text">{{ movie.year }}</p>
@@ -51,7 +51,7 @@
         </div>
         <hr>
         <div class="stat">
-            <h6>POPULARITÉ</h6>
+            <h6>POPULARITÉ*</h6>
             <p>82%</p>
         </div>
         <hr>
@@ -71,6 +71,14 @@
                 <i class="bi bi-heart"></i>
             </a>
             {% endif %}     
+        </div>
+    </div>
+    <p id="popularity">*basé sur <a href="https://developers.themoviedb.org/3/getting-started/introduction">The Movie Database API</a></p>
+
+    <div class="review">
+        <h6>Ma critique</h6>
+        <div id="review" class="container">
+            <cite>&nbsp;"{{ movie.myReview }}"</cite>
         </div>
     </div>
 

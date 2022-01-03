@@ -30,19 +30,14 @@ class SeriesController extends AbstractController
     {
         $series = $seriesRepository->findAll();
 
-        /* foreach ($series as $serie) {
-            $seriesAPI[] = $callApiService->getPopularity($serie);
-        } */
-        //dd($seriesAPI);
         $series = $paginator->paginate(
             $series,
             $request->query->getInt('page', 1), 
-            6
+            6 //limit
         );
 
         return $this->render('series/index.html.twig', [
             'series' => $series,
-            //'api' => $seriesAPI,
         ]);
     }
 
@@ -58,11 +53,10 @@ class SeriesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = $slugify->generate($series->getTitle());
-            // chercher ici poster, synopsis etc. pour inclure directement dans la base de donnée
             $series->setSlug($slug);
             $entityManager->persist($series);
 
-            $seriesAPI = $callApiService->getPopularity($series);
+            $seriesAPI = $callApiService->getSeriesData($series);
             $series->setPoster($seriesAPI['poster_path']);
             $series->setStartYear(substr($seriesAPI['first_air_date'], 0, 4));
             $series->setSynopsis($seriesAPI['overview']);
@@ -86,13 +80,10 @@ class SeriesController extends AbstractController
      */
     public function show(Series $series, Request $request, EntityManagerInterface $entityManager, CallApiService $callApiService): Response
     {
-        $seriesAPI = $callApiService->getPopularity($series);
-
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-
-        //dd($seriesAPI);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setAuthor($this->getUser());
             $comment->setSeries($series);
@@ -101,14 +92,13 @@ class SeriesController extends AbstractController
 
             return $this->redirectToRoute('series_show', ['slug' => $series->getSlug()], Response::HTTP_SEE_OTHER);
         }
-        //dd($seriesAPI['results'][0]);
+
         return $this->render('series/show.html.twig', [
             'series' => $series,
             'actors' =>$series->getActors(),
             'comment' => $comment,
             'form' => $form->createView(),
             'comments' => $series->getComments(),
-            'api' => $seriesAPI,
         ]);
     }
 

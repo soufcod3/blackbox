@@ -45,12 +45,12 @@
     </div>
 </section>
 <section class="results">
-    <h2>123 films</h2>
+    <h2>{{  movies.getTotalItemCount }} films</h2>
     <div class="cards">
         {% for movie in movies %}
         <div class="card">
             <a href="{{ path("movie_show", { slug: movie.slug }) }}">
-                <img class="card-img-top" src=" {{ movie.poster }} " alt="Card image cap">
+                <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ movie.poster }} " alt="Affiche de {{ movie.title }}">
             </a>
             <div class="card-body">
                 <h6>{{ movie.title }}</h6>
@@ -58,6 +58,10 @@
             </div>
         </div>
         {% endfor %} 
-    </div>       
+    </div>     
+    <div class="pagination">
+        {% do movies.setPageRange(3) %}
+        {{ knp_pagination_render(movies, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>  
 </section>
 {% endblock %}

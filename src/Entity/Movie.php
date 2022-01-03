@@ -30,7 +30,7 @@ class Movie
     private $year;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1000)
      */
     private $synopsis;
 
@@ -40,9 +40,9 @@ class Movie
     private $poster;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $trailerLink;
+    private $background;
 
     /**
      * @ORM\Column(type="integer", length=255)
@@ -68,11 +68,6 @@ class Movie
      * @ORM\ManyToMany(targetEntity=Actor::class, mappedBy="movies")
      */
     private $actors;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $watchedOn;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="movie")
@@ -161,14 +156,14 @@ class Movie
         return $this;
     }
 
-    public function getTrailerLink(): ?string
+    public function getBackground(): ?string
     {
-        return $this->trailerLink;
+        return $this->background;
     }
 
-    public function setTrailerLink(string $trailerLink): self
+    public function setBackground(string $background): self
     {
-        $this->trailerLink = $trailerLink;
+        $this->background = $background;
 
         return $this;
     }
@@ -244,18 +239,6 @@ class Movie
         if ($this->actors->removeElement($actor)) {
             $actor->removeMovie($this);
         }
-
-        return $this;
-    }
-
-    public function getWatchedOn(): ?\DateTimeInterface
-    {
-        return $this->watchedOn;
-    }
-
-    public function setWatchedOn(\DateTimeInterface $watchedOn): self
-    {
-        $this->watchedOn = $watchedOn;
 
         return $this;
     }

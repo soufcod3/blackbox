@@ -18,6 +18,8 @@ section.search {
 section.results {
     h2 {
         text-align: center;
+        margin: 1rem 0;
+        color: white;
     }
 
     .cards {
@@ -117,15 +119,8 @@ section.watch {
         border-radius: 4px;
         .seen, .watchlist {
             text-align: center;
-        }
-        .seen {
             .bi {
-                filter: $seenFilter;
-            }
-        }
-        .watchlist {
-            .bi {
-                filter: $watchlistFilter;
+                filter: $watchFilter;
             }
         }
         h6 {
@@ -180,6 +175,26 @@ section.content {
             height: 3rem;
         }
     }
+    #popularity {
+        padding: 0.5rem 0 0 1rem;
+        font-size: 0.8rem;
+        color: $lightText;
+        a {
+            color: $lightText !important;
+        }
+    }
+    .review {
+        margin-top: 1rem;
+        border-radius: 0;
+        #review {
+            background: #462b774f;
+            padding: 0.7rem 1rem;
+            font-size: 1rem;
+            text-align: justify;
+            color: white;
+        }
+    }
+
     .synopsis {
         margin: 1.5rem 0;
         color: $lightText;
@@ -188,7 +203,8 @@ section.content {
             background: $darkBg;
             padding: 1rem;
             p {
-                font-size: 0.9rem;
+                font-size: 1rem;
+                text-align: justify;
             }
         }   
     }
@@ -312,6 +328,7 @@ section.content {
                     color: white;
                     margin-top: 1rem;
                     padding: 0.6rem;
+                    width: 100%;
                 }
             }
         }

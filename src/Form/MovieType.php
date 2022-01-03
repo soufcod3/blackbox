@@ -16,12 +16,7 @@ class MovieType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('year')
-            ->add('synopsis')
-            ->add('poster')
-            ->add('trailerLink')
             ->add('myRate')
-            ->add('popularity')
             ->add('myReview')
             ->add('category', null, ['choice_label' => 'name'])
             ->add('actors', EntityType::class, [

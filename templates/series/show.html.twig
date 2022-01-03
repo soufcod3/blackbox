@@ -7,7 +7,7 @@
     <img class="teaser"src="https://image.tmdb.org/t/p/original{{ series.background }}"
         alt="">
     <div class="card">
-        <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ series.poster }}" alt="Card image cap">
+        <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ series.poster }}" alt="Affiche de {{ series.title }}">
         <div class="card-body">
             <h6>{{ series.title }}</h6>
             <p class="card-text">{{ series.startYear }}
@@ -56,8 +56,8 @@
         </div>
         <hr>
         <div class="stat">
-            <h6>POPULARITÉ</h6>
-            <p>{{ api.vote_average * 10 }}%</p>
+            <h6>POPULARITÉ*</h6>
+            <p>{{ series.popularity }}%</p>
         </div>
         <hr>
         <div class="stat">
@@ -78,11 +78,19 @@
             {% endif %}       
         </div>
     </div>
+    <p id="popularity">*basé sur <a href="https://developers.themoviedb.org/3/getting-started/introduction">The Movie Database API</a></p>
+
+    <div class="review">
+        <h6>Ma critique</h6>
+        <div id="review" class="container">
+            <cite>&nbsp;"{{ series.myReview }}"</cite>
+        </div>
+    </div>
 
     <div class="synopsis">
         <h6>Synopsis</h6>
         <div class="container">
-            <p>{{ api.overview }}</p>
+            <p>{{ series.synopsis }}</p>
         </div>
     </div>
 
