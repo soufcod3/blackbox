@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Films favoris{% endblock %}
+
+{% block body %}
+<section class="profile-info">
+    <h2>Films favoris</h2>
+    <hr>
+    <button class="btn"><a href="/profile">Retour</a></button>
+</section>
+<section class="collection">
+    <div class="container">
+        {% if movies is empty %}
+            <div class="empty">
+                <i class="fas fa-heart-broken"></i>
+                <h5>Tu n'as pas encore de films en favoris</h5>
+            </div>
+            {% else %}
+        <div class="cards">
+        {% for movie in movies %}
+            <div class="card">
+                <a href="{{ path("movie_show", { slug: movie.slug }) }}">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ movie.poster }}" alt="Affiche de {{ movie.title }}">
+                </a>
+                <div class="card-body">
+                    <h6>{{ movie.title }}</h6>
+                    <p class="card-text">{{ movie.year }}</p>
+                </div>
+            </div>
+        {% endfor %}            
+        </div>
+        {% endif %}    
+    </div>
+</section>
+{% endblock body %}
