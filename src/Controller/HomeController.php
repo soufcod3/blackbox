@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,17 +19,10 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/profile", name="app_profile")
+     * @Route("/about", name="app_about")
      */
-    public function profile(): Response
+    public function about(): Response
     {
-        $users = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findAll();
-
-        return $this->render(
-            'home/profile.html.twig',
-            ['users' => $users]
-        );
+        return $this->render('home/about.html.twig', []);
     }
 }

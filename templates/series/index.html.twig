@@ -18,6 +18,9 @@
                     <label for="genre">Genre:</label>
                     <select class="form-select">
                         <option>Tous</option>
+                        {% for category in categories %}
+                            <option>{{ category.name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="col-6">
@@ -59,7 +62,7 @@
                     - {{ serie.endYear }}
                 {% else %}
                     - aujourd'hui
-                {% endif %}</p></p>
+                {% endif %}</p>
             </div>
         </div>
         {% endfor %} 

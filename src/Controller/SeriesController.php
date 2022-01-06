@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Series;
+use App\Entity\Category;
 use App\Form\CommentType;
 use App\Form\SeriesType;
+use App\Repository\CategoryRepository;
 use App\Repository\SeriesRepository;
 use App\Service\CallApiService;
 use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,21 +26,32 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class SeriesController extends AbstractController
 {
+
+    protected $managerRegistry;
+
+    public function __construct(ManagerRegistry $managerRegistry)
+    {
+        $this->managerRegistry = $managerRegistry;
+    }
+
     /**
      * @Route("/", name="series_index", methods={"GET"})
      */
-    public function index(SeriesRepository $seriesRepository,Request $request, PaginatorInterface $paginator): Response
+    public function index(SeriesRepository $seriesRepository, Request $request, PaginatorInterface $paginator, CategoryRepository $categories): Response
     {
         $series = $seriesRepository->findAll();
 
+        $categories = $categories->findAll();
+
         $series = $paginator->paginate(
             $series,
-            $request->query->getInt('page', 1), 
+            $request->query->getInt('page', 1),
             6 //limit
         );
 
         return $this->render('series/index.html.twig', [
             'series' => $series,
+            'categories' => $categories,
         ]);
     }
 
@@ -83,7 +97,7 @@ class SeriesController extends AbstractController
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setAuthor($this->getUser());
             $comment->setSeries($series);
@@ -95,7 +109,7 @@ class SeriesController extends AbstractController
 
         return $this->render('series/show.html.twig', [
             'series' => $series,
-            'actors' =>$series->getActors(),
+            'actors' => $series->getActors(),
             'comment' => $comment,
             'form' => $form->createView(),
             'comments' => $series->getComments(),
@@ -129,25 +143,28 @@ class SeriesController extends AbstractController
      */
     public function addToSeriesWatchlist(Series $seriesId)
     {
-        $series = $this->getDoctrine()
+        $series = $this->managerRegistry
             ->getRepository(Series::class)
             ->findOneBy(['id' => $seriesId]);
-        
-        if ($this->getUser()->isInSeriesWatchlist($series)) {
-            $this->getUser()->removeSeriesWatchlist($series);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isInSeriesWatchlist($series)) {
+            $user->removeSeriesWatchlist($series);
         } else {
-            $this->getUser()->addSeriesWatchlist($series);
+            $user->addSeriesWatchlist($series);
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->managerRegistry->getManager();
         $entityManager->persist($series);
+        $entityManager->persist($user);
         $entityManager->flush();
 
         // AJAX
         return $this->json([
-            'isInSeriesWatchlist' => $this->getUser()->isInSeriesWatchlist($series)
+            'isInSeriesWatchlist' => $user->isInSeriesWatchlist($series)
         ]);
-           
     }
 
     /**
@@ -156,17 +173,17 @@ class SeriesController extends AbstractController
      */
     public function addToFavoriteSeries(Series $seriesId)
     {
-        $series = $this->getDoctrine()
+        $series = $this->managerRegistry
             ->getRepository(Series::class)
             ->findOneBy(['id' => $seriesId]);
-        
+
         if ($this->getUser()->isInFavoriteSeries($series)) {
             $this->getUser()->removeFavoriteSeries($series);
         } else {
             $this->getUser()->addFavoriteSeries($series);
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->managerRegistry->getManager();
         $entityManager->persist($series);
         $entityManager->flush();
 
@@ -174,7 +191,6 @@ class SeriesController extends AbstractController
         return $this->json([
             'isInFavoriteSeries' => $this->getUser()->isInFavoriteSeries($series)
         ]);
-           
     }
 
     /**
@@ -183,17 +199,17 @@ class SeriesController extends AbstractController
      */
     public function addToSeenSeries(Series $seriesId)
     {
-        $series = $this->getDoctrine()
+        $series = $this->managerRegistry
             ->getRepository(Series::class)
             ->findOneBy(['id' => $seriesId]);
-        
+
         if ($this->getUser()->isInSeenSeries($series)) {
             $this->getUser()->removeSeenSeries($series);
         } else {
             $this->getUser()->addSeenSeries($series);
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->managerRegistry->getManager();
         $entityManager->persist($series);
         $entityManager->flush();
 
@@ -201,7 +217,6 @@ class SeriesController extends AbstractController
         return $this->json([
             'isInSeenSeries' => $this->getUser()->isInSeenSeries($series)
         ]);
-           
     }
 
     /**
@@ -210,7 +225,7 @@ class SeriesController extends AbstractController
      */
     public function delete(Request $request, Series $series, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$series->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $series->getId(), $request->request->get('_token'))) {
             $entityManager->remove($series);
             $entityManager->flush();
         }
