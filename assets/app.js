@@ -15,6 +15,7 @@ import './styles/_navbar.scss';
 import './styles/home.scss';
 import './styles/login.scss';
 import './styles/profile.scss';
+import './styles/about.scss';
 
 // start the Stimulus application
 import './bootstrap';

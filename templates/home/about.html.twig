@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A Propos{% endblock %}
+
+{% block body %}
+<h3 class="about">A Propos de mon site</h3>
+<section class="chapter">
+    <h4>Sommaire</h4>
+    <div id="check" class="container">
+        <ul>
+            <a href="#me"><li>Qui suis-je ?</li></a>
+            <a href="#goals"><li>Le but de ce site</li></a>
+            <a href="#methodology"><li>Ma méthode de travail</li></a>
+            <ul>
+                <a href="#brainstorming"><li>Brainstorming</li></a>
+                <a href="#design"><li>Design et modélisations</li></a>
+                <a href="#tasks"><li>Tâches et plannification</li></a>
+            </ul>
+            <li>La phase de développement</li>
+            <ul>
+                <a href="#front-end"><li>Côté front</li></a>
+                <a href="#back-end"><li>Côté back</li></a>
+            </ul>
+            <li>Mes axes d'amélioration</li>
+        </ul>
+    </div>
+</section>
+<hr id="hr-about">
+<section class="about-content">
+    <h6 id="me">Qui suis-je ?</h6>
+    <div class="container">
+        <p>Je m'appelle Soufiane Aït Ouarraou, développeur web de 26 ans résidant à Paris.
+            M</p> 
+        <div class="illustration">
+            <img src="{{ asset('build/images/portrait.jpg') }}" alt="Soufiane en ville">
+        </div>
+    </div>
+    <h6 id="goals">Le but de ce site</h6>
+    <div class="container">
+        <p>J'ai entrepris de réaliser ce site pour deux raisons principales. La première raison </p> 
+    </div>
+    <h6 id="methodology">Ma méthode de travail</h6>
+    <div class="container">
+        <p>J'ai réalisé ce site en ...</p>
+        <li id="brainstorming">Brainstorming :</li>
+        <p>Le brainstorming consiste en ...</p>
+        <li id="design">Design et modélisations :</li>
+        <p>Le design du site ...</p>
+        <div class="illustration">
+            <img src="{{ asset('build/images/maquette.png') }}" alt="Maquette du site">
+        </div>
+        <li id="tasks">Tâches et plannification :</li>
+        <p>Pour m'organiser dans mon travail, j'ai en priorité utilisé un tableau blanc. 
+            A l'instar de Trello, je trouve que cette approche m'a permis d'avoir un meilleur visuel de ce qu'il me restait à faire.
+        </p>
+        <div class="illustration">
+            <img src="{{ asset('build/images/ardoise.png') }}" alt="Mon tableau blanc">
+        </div>
+    </div>
+    <h6>Le développement du site</h6>
+    <div class="container">
+        <p>Le développement du site ... </p>
+        <li id="front-end">Côté front :</li>
+        <div class="tools">
+            <div class="tool">
+                <i class="fab fa-html5"></i>
+                <p>HTML</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-css3"></i>
+                <p>CSS</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-bootstrap"></i>
+                <p>Bootstrap</p>
+            </div>
+            <div class="tool">
+                <i class="fas fa-code"></i>
+                <p>Twig</p>
+            </div>
+        </div>
+        <li id="front-end">Côté back :</li>
+        <div class="tools">
+            <div class="tool">
+                <i class="fab fa-php"></i>
+                <p>PHP</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-symfony"></i>
+                <p>Symfony</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-js"></i>
+                <p>JavaScript</p>
+            </div>
+        </div>
+        <li id="tools">Autres outils :</li>
+        <div class="tools">
+            <div class="tool">
+                <i class="fab fa-sass"></i>
+                <p>Sass</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-git"></i>
+                <p>Git</p>
+            </div>
+        </div>
+    </div>
+    <h6>Bilan et axes d'amélioration</h6>
+    <div class="container">
+        <p>Bilan de ce projet ... </p> 
+    </div>
+</section>
+{% endblock %}

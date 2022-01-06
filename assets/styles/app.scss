@@ -1,6 +1,9 @@
 @import "custom.scss";
 @import "~bootstrap/scss/bootstrap";
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     background-color: $mainBg !important;
