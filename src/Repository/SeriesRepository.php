@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Series;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,29 @@ class SeriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Series::class);
     }
 
-    // /**
-    //  * @return Series[] Returns an array of Series objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    // Get the series related to search query
+    /**
+     * @return Series[]
+     */
+    public function findSearch(SearchData $search): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('c', 's')
+            ->join('s.category', 'c');
 
-    /*
-    public function findOneBySomeField($value): ?Series
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if(!empty($search->q)) {
+            $query = $query
+                ->andWhere('s.title LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        if(!empty($search->category)) {
+            $query = $query
+                ->andWhere('c.id IN (:category)')
+                ->setParameter('category', $search->category);
+        }
+
+        return $query->getQuery()->getResult();
     }
-    */
 }

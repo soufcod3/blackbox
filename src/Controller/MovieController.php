@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Comment;
 use App\Entity\Movie;
 use App\Form\CommentType;
 use App\Form\MovieType;
+use App\Form\SearchType;
 use App\Repository\MovieRepository;
 use App\Service\CallApiService;
 use App\Service\Slugify;
@@ -29,16 +31,20 @@ class MovieController extends AbstractController
      */
     public function index(MovieRepository $movieRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $movies = $movieRepository->findAll();
+        $data = new SearchData();
+        $form = $this->createForm(SearchType::class, $data);
+        $form->handleRequest($request);
+        $movies = $movieRepository->findSearch($data);
 
         $movies = $paginator->paginate(
             $movies,
-            $request->query->getInt('page', 1), 
+            $request->query->getInt('page', 1),
             6 //limit
         );
 
         return $this->render('movie/index.html.twig', [
             'movies' => $movies,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -101,7 +107,7 @@ class MovieController extends AbstractController
 
         return $this->render('movie/show.html.twig', [
             'movie' => $movie,
-            'actors' =>$movie->getActors(),
+            'actors' => $movie->getActors(),
             'comment' => $comment,
             'form' => $form->createView(),
             'comments' => $movie->getComments(),
@@ -133,27 +139,27 @@ class MovieController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/{id}/seen", name="movie_seen", methods={"GET","POST"})
      */
-    public function addToSeenMovies(Movie $movieId)
+    public function addToSeenMovies(Movie $movieId, EntityManagerInterface $em)
     {
-        $movie = $this->getDoctrine()
-            ->getRepository(Movie::class)
+        $movie = $em->getRepository(Movie::class)
             ->findOneBy(['id' => $movieId]);
-        
-        if ($this->getUser()->isInSeenMovies($movie)) {
-            $this->getUser()->removeSeenMovie($movie);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isInSeenMovies($movie)) {
+            $user->removeSeenMovie($movie);
         } else {
-            $this->getUser()->addSeenMovie($movie);
+            $user->addSeenMovie($movie);
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($movie);
-        $entityManager->flush();
+        $em->persist($movie);
+        $em->flush();
 
         // AJAX
         return $this->json([
-            'isInSeenMovies' => $this->getUser()->isInSeenMovies($movie)
+            'isInSeenMovies' => $user->isInSeenMovies($movie)
         ]);
-           
     }
 
     /**
@@ -165,11 +171,14 @@ class MovieController extends AbstractController
         $movie = $this->getDoctrine()
             ->getRepository(Movie::class)
             ->findOneBy(['id' => $movieId]);
-        
-        if ($this->getUser()->isInMoviesWatchlist($movie)) {
-            $this->getUser()->removeMoviesWatchlist($movie);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isInMoviesWatchlist($movie)) {
+            $user->removeMoviesWatchlist($movie);
         } else {
-            $this->getUser()->addMoviesWatchlist($movie);
+            $user->addMoviesWatchlist($movie);
         }
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -178,9 +187,8 @@ class MovieController extends AbstractController
 
         // AJAX
         return $this->json([
-            'isInMoviesWatchlist' => $this->getUser()->isInMoviesWatchlist($movie)
+            'isInMoviesWatchlist' => $user->isInMoviesWatchlist($movie)
         ]);
-           
     }
 
     /**
@@ -192,11 +200,14 @@ class MovieController extends AbstractController
         $movie = $this->getDoctrine()
             ->getRepository(Movie::class)
             ->findOneBy(['id' => $movieId]);
-        
-        if ($this->getUser()->isInFavoriteMovies($movie)) {
-            $this->getUser()->removeFavoriteMovie($movie);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isInFavoriteMovies($movie)) {
+            $user->removeFavoriteMovie($movie);
         } else {
-            $this->getUser()->addFavoriteMovie($movie);
+            $user->addFavoriteMovie($movie);
         }
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -205,11 +216,9 @@ class MovieController extends AbstractController
 
         // AJAX
         return $this->json([
-            'isInFavoriteMovies' => $this->getUser()->isInFavoriteMovies($movie)
+            'isInFavoriteMovies' => $user->isInFavoriteMovies($movie)
         ]);
-           
     }
-
 
     /**
      * @IsGranted("ROLE_USER")
@@ -217,7 +226,7 @@ class MovieController extends AbstractController
      */
     public function delete(Request $request, Movie $movie, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$movie->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $movie->getId(), $request->request->get('_token'))) {
             $entityManager->remove($movie);
             $entityManager->flush();
         }

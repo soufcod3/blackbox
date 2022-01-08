@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Comment;
 use App\Entity\Series;
 use App\Entity\Category;
 use App\Form\CommentType;
+use App\Form\SearchType;
 use App\Form\SeriesType;
-use App\Repository\CategoryRepository;
 use App\Repository\SeriesRepository;
 use App\Service\CallApiService;
 use App\Service\Slugify;
@@ -37,11 +38,13 @@ class SeriesController extends AbstractController
     /**
      * @Route("/", name="series_index", methods={"GET"})
      */
-    public function index(SeriesRepository $seriesRepository, Request $request, PaginatorInterface $paginator, CategoryRepository $categories): Response
+    public function index(SeriesRepository $seriesRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $series = $seriesRepository->findAll();
 
-        $categories = $categories->findAll();
+        $data = new SearchData();
+        $form = $this->createForm(SearchType::class, $data);
+        $form->handleRequest($request);
+        $series = $seriesRepository->findSearch($data);
 
         $series = $paginator->paginate(
             $series,
@@ -51,7 +54,7 @@ class SeriesController extends AbstractController
 
         return $this->render('series/index.html.twig', [
             'series' => $series,
-            'categories' => $categories,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -177,10 +180,13 @@ class SeriesController extends AbstractController
             ->getRepository(Series::class)
             ->findOneBy(['id' => $seriesId]);
 
-        if ($this->getUser()->isInFavoriteSeries($series)) {
-            $this->getUser()->removeFavoriteSeries($series);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isInFavoriteSeries($series)) {
+            $user->removeFavoriteSeries($series);
         } else {
-            $this->getUser()->addFavoriteSeries($series);
+            $user->addFavoriteSeries($series);
         }
 
         $entityManager = $this->managerRegistry->getManager();
@@ -189,7 +195,7 @@ class SeriesController extends AbstractController
 
         // AJAX
         return $this->json([
-            'isInFavoriteSeries' => $this->getUser()->isInFavoriteSeries($series)
+            'isInFavoriteSeries' => $user->isInFavoriteSeries($series)
         ]);
     }
 
@@ -203,10 +209,13 @@ class SeriesController extends AbstractController
             ->getRepository(Series::class)
             ->findOneBy(['id' => $seriesId]);
 
-        if ($this->getUser()->isInSeenSeries($series)) {
-            $this->getUser()->removeSeenSeries($series);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isInSeenSeries($series)) {
+            $user->removeSeenSeries($series);
         } else {
-            $this->getUser()->addSeenSeries($series);
+            $user->addSeenSeries($series);
         }
 
         $entityManager = $this->managerRegistry->getManager();
@@ -215,7 +224,7 @@ class SeriesController extends AbstractController
 
         // AJAX
         return $this->json([
-            'isInSeenSeries' => $this->getUser()->isInSeenSeries($series)
+            'isInSeenSeries' => $user->isInSeenSeries($series)
         ]);
     }
 

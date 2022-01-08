@@ -4,51 +4,23 @@
 
 {% block body %}
 <section class="search">
-    <div class="container">
-        <form>
-            <label for="search">Rechercher:</label>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Search">
-                <div class="input-group-append">
-                  <button class="btn btn-success" type="submit">Go</button>
-                </div>
-            </div>
-            <div class="row g-3">
-                <div class="col-6">
-                    <label for="genre">Genre:</label>
-                    <select class="form-select">
-                        <option>Tous</option>
-                        {% for category in categories %}
-                            <option>{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label for="rate">Popularité:</label>
-                    <select class="form-select">
-                        <option>Toutes</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row g-3">
-                <div class="col-6">
-                    <label for="year">Année:</label>
-                    <select class="form-select">
-                        <option>Toutes</option>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label for="orderBy">Trier par:</label>
-                    <select class="form-select">
-                        <option>Dernier ajout</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-    </div>
+    {% include "program/_filter.html.twig" with {form: form} only %}
 </section>
 <section class="results">
-    <h2>{{  series.getTotalItemCount }} séries</h2>
+    <h2>{{  series.getTotalItemCount }}
+        {% if series.getTotalItemCount == 1 %}
+            série</h2>
+        {% else %}
+            séries</h2>
+        {% endif %}
+        {% if series is empty %}
+            <div class="container">
+                <div class="empty">
+                    <i class="bi bi-question-octagon-fill"></i>
+                    <h5>Aucune série ne correspond à ta recherche</h5>
+                </div>
+            </div>
+        {% endif %}
     <div class="cards">
         {% for serie in series %}
         <div class="card">

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Movie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,29 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
-    // /**
-    //  * @return Movie[] Returns an array of Movie objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    // Get the movies related to search query
+    /**
+     * @return Movie[]
+     */
+    public function findSearch(SearchData $search): array
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('c', 's')
+            ->join('s.category', 'c');
 
-    /*
-    public function findOneBySomeField($value): ?Movie
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if(!empty($search->q)) {
+            $query = $query
+                ->andWhere('s.title LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        if(!empty($search->category)) {
+            $query = $query
+                ->andWhere('c.id IN (:category)')
+                ->setParameter('category', $search->category);
+        }
+
+        return $query->getQuery()->getResult();
     }
-    */
 }
