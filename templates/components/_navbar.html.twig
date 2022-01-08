@@ -1,14 +1,15 @@
 <nav class="navbar navbar-expand-lg">
-  <a class="navbar-brand" href="/">BlackBox</a>
+  <a href="/">
+    <div class="navbar-brand">
+      <img src="{{ asset('build/images/logo.png') }}" alt="Logo de BlackBox">
+      <h4>BlackBox</h4>
+    </div>
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="bi bi-three-dots-vertical"></i>
+    <i class="fas fa-bars"></i>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Accueil</a>
-      </li>
-      <hr>
       <li class="nav-item">
         <a class="nav-link" href="/about">A Propos</a>
       </li>
@@ -22,10 +23,11 @@
       </li>
       <hr>
       {% if app.user %}
-      <a href="/profile"><button class="btn btn-profile">Mon Espace&nbsp;<i class="bi bi-person-fill"></i>
-      </button></a>
-      <hr>
-      <a href="{{ path('app_logout') }}"><button class="btn btn-logout">Déconnexion &nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button></a>
+      <div>
+        <a href="/profile"><button class="btn btn-profile"><i class="bi bi-person-fill"></i>&nbsp;&nbsp;{{ app.user.username }}
+        </button></a>
+        <a href="{{ path('app_logout') }}"><button class="btn btn-logout"><i class="bi bi-box-arrow-right"></i></button></a>
+      </div>
       {% else %}
       <a href="{{ path('login') }}"><button class="btn btn-login">Me connecter</button></a>
       {% endif %}
