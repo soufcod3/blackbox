@@ -115,7 +115,7 @@
                 <div class="postedBy">
                     <h6>Par&nbsp;</h6>
                     <h6 id="user"> {{ comment.author.username }}</h6>
-                    <h6>- il y a 2 heures</h6>
+                    <h6 id="date">- le {{ comment.date }} à {{ comment.time }}</h6>
                 </div>
                 <div class="content">
                     <p>{{ comment.comment }}</p>

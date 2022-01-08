@@ -23,6 +23,16 @@ class Comment
     private $author;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $time;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Series::class, inversedBy="comments")
      */
     private $series;
@@ -36,6 +46,12 @@ class Comment
      * @ORM\Column(type="string", length=255)
      */
     private $comment;
+
+    public function __construct()
+    {
+        $this->date = date('d/m/Y', time());
+        $this->time = date('H:i', time());
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +102,30 @@ class Comment
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
+    public function setDate(string $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getTime(): ?string
+    {
+        return $this->time;
+    }
+
+    public function setTime(string $time): self
+    {
+        $this->time = $time;
 
         return $this;
     }
