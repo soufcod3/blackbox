@@ -3,22 +3,21 @@
 
 section.search {
     color: white !important;
-    display: flex;
-    justify-content: center;
-
-    .container {
-        height: 250px;
-        background: $darkBg;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    background: $darkBg;
+    padding: 2rem 3rem;
+    button {
+        width: 100%;
+    }
+    .btn-blackbox {
+        color: white;
+        background: #21133f;
     }
 }
 
 section.results {
     h2 {
         text-align: center;
-        margin: 1rem 0;
+        margin: 2rem 0;
         color: white;
     }
 
@@ -64,6 +63,27 @@ section.results {
         .page-item.active .page-link {
             background: $lightText;
             color: $darkBg;
+        }
+    }
+    .container {
+        text-align: center;
+        padding: 0 1rem;
+        background: $mainBg;
+        .empty {
+            background: $darkBg;
+            min-height: 10rem;
+            text-align: center;
+            margin-top: 3.5rem;
+            padding: 3rem 2.5rem;
+            color: $lightText;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            i {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
         }
     }
 }
