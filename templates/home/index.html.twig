@@ -3,8 +3,13 @@
 {% block title %}Bienvenue{% endblock %}
 
 {% block body %}
-<main>
-    <h3>Envie d’une idée de films ou de séries à regarder ? 🍿</h3>
-    <button class="btn btn-danger">Parcourir</button>
-</main>
+<section class="screen">
+    <img id ="screen" src="{{ asset('build/images/mobile-bg.png') }}">
+    <div class="browse">
+        <a href="/series">
+            <button class="btn">Parcourir</button>
+        </a>
+    </div>
+</section>
+<div class="seats"></div>
 {% endblock %}
