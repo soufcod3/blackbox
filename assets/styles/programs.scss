@@ -24,14 +24,13 @@ section.results {
     .cards {
         padding: 1rem;
         display: grid;
-        //grid-gap: 0.5rem;
         grid-template-columns: repeat(2, 1fr);
     }
 
     .card {
         width: 9rem;
         background-color: transparent;
-        margin: auto;
+        margin: 0.5rem auto;
         .card-img-top {
             outline: 3.5px solid white;
             border-radius: 3px;
