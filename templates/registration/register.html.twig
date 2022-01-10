@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
+
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block body %}
+{% for flashError in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+{% endfor %}
+
+<section class="login">
+    <h2>Créer un compte</h2>
+    <div class="container register">
+        {{ form_start(registrationForm) }}
+        {{ form_label(registrationForm.username, 'Nom d\'utilisateur:') }}
+        {{ form_widget(registrationForm.username) }}
+        {{ form_label(registrationForm.email, 'Adresse e-mail:*') }}
+        {{ form_widget(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de passe:'
+        }) }}
+
+        <div class="submit-container">
+            <button type="submit" class="btn btn-login">Créer mon compte</button>
+        </div>
+        {{ form_end(registrationForm) }}
+        <p>* Ton adresse mail ne sera ni divulguée ni utilisée, c'est promis.</p>
+    </div>
+    <h2>Tu as déjà un compte ?</h2>
+    <a href="/login" class="btn btn-signin">Connecte-toi</a>
+</section>
+
+
+{% endblock %}

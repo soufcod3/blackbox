@@ -1,0 +1,127 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+h3.about {
+    text-align: center;
+    margin: 3rem 0;
+    color: white;
+}
+.container {
+    background: #331e5a1c;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    li {
+        margin-bottom: 1rem;
+        font-family: $ubuntuMedium;
+        color: $lightText;
+    }
+    .tools {
+        display: flex;
+        justify-content: center;
+        .tool {
+            background: $darkBg;
+            width: 5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 3px;
+            margin: 0.5rem;
+            i {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 0.8rem;
+                margin-top: 0.5rem;
+            }
+        }
+    }
+}
+#check {
+    background-color: transparent;
+    margin-bottom: 0;
+    li {
+        color: white;
+    }
+}
+#hr-about {
+    width: 70%;
+    color: white;
+    margin: auto;
+    height: 2px !important;
+}
+section.chapter {
+    padding: 0 1rem;
+    color: white;
+    ul {
+        margin: 0;
+    }
+}
+
+section.about-content {
+    margin-top: 1rem;
+    padding: 0 1rem;
+    color: white;
+    h6 {
+        padding-top: 1rem;
+    }
+    p {
+        margin: 0;
+    }
+    li {
+        margin-top: 1rem;
+    }
+    .illustration {
+        height: 15rem;
+        overflow: hidden;
+        margin: 1rem 0;
+        border: 5px solid $darkBg;
+        img {
+            max-width: 100%;
+            height: auto;
+            opacity: 0.9;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    h3.about {
+        margin: 5rem 0;
+    }
+    section.chapter {
+        padding: 0 5rem;
+    }
+    section.about-content {
+        padding: 0 5rem;
+        margin-bottom: 2rem;
+        .illustration {
+            height: 28rem;
+        }
+        h6 {
+            padding-top: 2rem;
+        }
+    }
+    .container {
+        .tools {
+            justify-content: flex-start ;
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    section.chapter {
+        padding: 0 15rem;
+    }
+    section.about-content {
+        padding: 0 20rem;
+        h6 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .illustration {
+            margin-top: 2rem;
+            height: 37rem;
+        }
+    }
+}

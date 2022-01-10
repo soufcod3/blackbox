@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Watchlist séries{% endblock %}
+
+{% block body %}
+<section class="profile-info">
+    <h2>Watchlist séries</h2>
+    <hr>
+    <button class="btn"><a href="/profile">Retour</a></button>
+</section>
+<section class="collection">
+    <div class="container">
+        {% if series is empty %}
+            <div class="empty">
+                <i class="fas fa-times-circle"></i>
+                <h5>Tu n'as pas encore de séries dans ta watchlist</h5>
+            </div>
+            {% else %}
+        <div class="cards">
+            {% for serie in series %}
+            <div class="card">
+                <a href="{{ path("series_show", { slug: serie.slug }) }}">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ serie.poster }}" alt="Affiche de {{ serie.title }}">
+                </a>
+                <div class="card-body">
+                    <h6>{{ serie.title }}</h6>
+                    <p class="card-text">{{ serie.startYear }}</p>
+                </div>
+            </div>
+        {% endfor %}  
+        </div>   
+        {% endif %}    
+    </div>
+</section>
+{% endblock body %}

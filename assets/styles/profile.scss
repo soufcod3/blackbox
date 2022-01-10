@@ -1,0 +1,161 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+section.profile-info {
+    color: white;
+    text-align: center;
+    margin-top: 3rem ;
+    hr {
+        width: 30%;
+        color: $lightText;
+        height: 2px;
+        margin: 0.5rem auto;
+    }
+    .btn {
+        background: $darkBg;
+    }
+    a {
+        text-decoration: none;
+        font-size: 0.8rem;
+    }
+}
+
+section.dashboard {
+    margin-top: 1rem;
+    padding: 1rem;
+    color: $lightText;
+    h6 {
+        margin-top: 0.5rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+    .boxes {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+        a {
+            text-decoration: none;
+            h2 {
+                color: white;
+                font-size: 2rem;
+                margin: 0;
+            }
+            h4 {
+                color: $lightText;
+            }
+        }
+        .box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: $darkBg;
+            margin: 0.5rem;
+            width: 10rem;
+            height: 6rem;
+            border-radius: 4px;
+        }
+    }
+}
+
+section.collection {
+    padding: 1rem;
+    .container{
+        background: $darkBg;
+        min-height: 17rem;
+        padding: 1rem;
+        .empty {
+            text-align: center;
+            margin-top: 3.5rem;
+            padding: 0 3rem;
+            color: $lightText;
+            i {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-items: center;
+            .card {
+                width: 5rem;
+                background: transparent;
+                .card-img-top {
+                    outline: 3px solid white;
+                    border-radius: 3px; 
+                }
+                .card-body {
+                    padding: 0.5rem 0 1rem 0;
+                    text-align: center;
+                    h6 {
+                        color: white;
+                        font-family: $ubuntuBold;
+                        margin-bottom: 0.2rem;
+                    }
+                    p {
+                        color: $lightText;
+                        font-size: 0.85rem;
+                        font-family: $ubuntuMedium;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width: 768px) {
+    section.dashboard {
+        padding: 5rem;
+        .boxes {
+            justify-content: center;
+            .box {
+                width: 10rem;
+            }
+        }
+    }
+    section.collection {
+        padding: 3rem 7rem;
+        .container {
+            min-height: 22rem;
+            padding: 2rem;
+            .empty {
+                margin-top: 5.5rem;
+                padding: 0 6rem
+            }
+            .cards {
+                .card {
+                    width: 8rem;
+                    .card-body {
+                        h6 {
+                            font-size: 1.1rem;
+                        }
+                        p {
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    section.dashboard {
+        padding: 2rem 5rem;
+    }
+    section.collection {
+        padding: 3rem 20rem;
+        .container {
+            padding: 3rem 2rem;
+            width: fit-content;
+            .cards {
+                .card {
+                    margin: 0 2rem;
+                }
+            }
+        }
+    }
+}
