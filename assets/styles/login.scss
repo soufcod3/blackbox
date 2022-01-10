@@ -1,0 +1,75 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+section.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    h2 {
+        margin: 2.5rem;
+        text-align: center;
+    }
+    .container {
+        background: $darkBg;
+        padding: 2rem;
+        width: 80%;
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        a {
+            color: $lightText !important;
+        }
+        p {
+            margin: 1rem 0 0 0;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        .btn-login {
+            margin-top: 1rem;
+            background: rgb(24, 139, 59);
+            color: white;
+        }
+        .submit-container {
+            display: flex;
+            justify-content: center;
+        }
+        .form-label {
+            margin: 0;
+        }
+        .error {
+            color: rgb(175, 70, 70);
+        }
+    }
+    .btn-signup {
+        background: $lightBg;
+        margin-bottom: 2rem;
+    }
+    .btn-signin {
+        background: $darkBg;
+        margin-bottom: 2rem;
+    }
+
+    .register {
+        input {
+            margin-bottom: 1rem;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        padding: 2rem 5rem;
+        h2 {
+            padding: 0 3rem;
+        }
+        .container {
+            margin-top: 2rem;
+            padding: 4rem
+        }
+    }
+    @media screen and (min-width: 992px) {
+        padding: 2rem 30rem;
+        h2 {
+            padding: 2rem;
+        }
+    }
+}

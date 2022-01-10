@@ -1,0 +1,89 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+.navbar {
+    background: $darkBg;
+
+    a {
+        font-family: $ubuntuMedium;
+        font-size: 1rem;
+        padding: 0;
+    }
+    ul {
+        .left {
+            text-align: center;
+        }
+    }
+    hr {
+        height: 2px;
+        width: 100%;
+        color: $lightText;
+    }
+    .btn {
+        font-size: 1rem;
+        padding: 0.2rem 0.5rem;
+        color: white;
+    }
+    .btn-login {
+        background: rgb(24, 139, 59);
+    }
+    .btn-profile {
+        background: $lightBg;
+    }
+    .btn-logout{
+        background: rgba(133, 19, 19, 0.5);
+    }
+    a {
+        text-decoration: none !important;
+    }
+    .navbar-brand{
+        margin: 0 1rem;
+        font-size: 1.2rem;
+        font-family: $ubuntuBold;
+        display: flex;
+        img {
+            width: 2rem;
+        }
+        h4{
+            margin: 0.3rem 0 0 0.3rem;
+            line-height: none;
+            font-family: $viga;
+        }
+    }
+    .navbar-nav{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+        i {
+            font-size: 1.2rem;
+        }
+    }
+    button {
+        .fa-bars {
+            filter: $lightFilter;
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+    }
+    @media screen and (min-width: 992px) {
+        padding: 0 4rem;
+        width: 100%;
+        .navbar-collapse {
+            justify-content: space-between;
+            ul {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .left {
+                    display: flex;
+                    margin-left: 2rem;
+                }
+            }
+        }
+        hr {
+            display: none;
+        }
+    }
+}

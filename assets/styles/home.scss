@@ -1,0 +1,71 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    section.screen {
+        height: 33rem;
+        #screen {
+            width: 100vw;
+        }
+        #screen-desktop {
+            display: none;
+        }
+        .browse {
+            margin-top: -4rem;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            button {
+                background-color: #493080;
+                color: white;
+            }
+        }
+    }
+    .seats {
+        height: 15rem;
+        background-image: url("../images/seats.png");
+        background-position: center;
+        background-size: cover;
+    }
+
+    @media screen and (min-width: 768px) {
+        section.screen {
+            height: 50rem;
+            #screen {
+                margin-top: -13rem;
+            }
+            .browse {
+                margin-top: -9rem !important;
+                button {
+                    height: 4rem;
+                    width: 9rem;
+                    font-size: 1.3rem;
+                    font-family: $ubuntuMedium;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        section.screen {
+            width: 100vw;
+            height: fit-content;
+            #screen {
+                display: none;
+            }
+            #screen-desktop {
+                display: block;
+                width: 100vw;
+                z-index: 0;
+            }
+            .browse {
+                width: 100vw;
+                margin-top: -1rem !important;
+            }
+        }
+        .seats {
+            height: 25rem;
+            width: 100vw;
+        }
+    }
+}

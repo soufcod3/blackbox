@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A Propos{% endblock %}
+
+{% block body %}
+<h3 class="about">A Propos de mon site</h3>
+<section class="chapter">
+    <h4>Sommaire</h4>
+    <div id="check" class="container">
+        <ul>
+            <a href="#me">
+                <li>Qui suis-je ?</li>
+            </a>
+            <a href="#goals">
+                <li>Le but de ce site</li>
+            </a>
+            <a href="#methodology">
+                <li>Ma méthode de travail</li>
+            </a>
+            <ul>
+                <a href="#brainstorming">
+                    <li>Brainstorming</li>
+                </a>
+                <a href="#design">
+                    <li>Design et modélisations</li>
+                </a>
+                <a href="#tasks">
+                    <li>Tâches et plannification</li>
+                </a>
+            </ul>
+            <a href="#code">
+                <li>La phase de développement</li>
+            </a>
+            <ul>
+                <li>Côté front</li>
+                <li>Côté back</li>
+                <li>Autres outils</li>
+            </ul>
+            <a href="#sum-up">
+                <li>Bilan et axes d'amélioration</li>
+            </a>
+        </ul>
+    </div>
+</section>
+<hr id="hr-about">
+<section class="about-content">
+    <h6 id="me">Qui suis-je ?</h6>
+    <div class="container">
+        <p>&nbsp;&nbsp;Je m'appelle Soufiane Aït Ouarraou, développeur web de 26 ans résidant à Paris. Passionné par la
+            technologie
+            depuis l’enfance, j’aime beaucoup les challenges et repousser mes limites, notamment en réalisant des
+            projets tels que celui-ci, en un temps restreint.</p>
+        <div class="illustration">
+            <img src="{{ asset('build/images/portrait.jpg') }}" alt="Soufiane en ville">
+        </div>
+    </div>
+    <h6 id="goals">Le but de ce site</h6>
+    <div class="container">
+        <p>&nbsp;&nbsp;Actuellement en formation de développeur web à la Wild Code School, j’ai voulu me mettre au défi
+            de mettre en application ce que j’ai appris jusqu’ici. <br> De plus, étant un grand amateur de cinéma, j’ai
+            pensé qu’il serait intéressant de pouvoir partager mes goûts cinématographiques via un site web. </p>
+    </div>
+    <h6 id="methodology">Ma méthode de travail</h6>
+    <div class="container">
+        <li id="brainstorming">Brainstorming :</li>
+        <p>&nbsp;&nbsp;L’idée était assez claire depuis le début. Elle m’est venue suite à un exercice réalisé en
+            formation intitulé « Wild-Series ». Je voulais proposer à la fois des séries mais aussi des films aux
+            visiteurs de mon site, de la manière la plus agréable possible.</p>
+        <li id="design">Design et modélisations :</li>
+        <p>&nbsp;&nbsp;J’aime beaucoup la création de maquettes graphiques. C’est le moment ou je laisse ma créativité
+            m’emmener vers les sentiers battus de mon imagination. Pour ce site, j’ai voulu rester assez classique, le
+            but ici n’étant pas de créer quelque chose d’innovant visuellement parlant, mais plutôt de développer un
+            back fonctionnel.
+            <br> &nbsp;&nbsp;J’ai utilisé Figma pour réaliser le wireframe ainsi que la maquette du site.
+        </p>
+        <div class="illustration">
+            <img src="{{ asset('build/images/maquette.png') }}" alt="Maquette du site">
+        </div>
+        <li id="tasks">Tâches et plannification :</li>
+        <p>&nbsp;&nbsp;Au sujet de ma planification, mon tableau blanc a largement su faire l’affaire. Etant
+            pareillement habitué à utiliser Trello, j’ai trouvé l’utilisation de mon tableau un peu plus agréable cette
+            fois-ci.
+        </p>
+        <div class="illustration">
+            <img src="{{ asset('build/images/ardoise.png') }}" alt="Mon tableau blanc">
+        </div>
+    </div>
+    <h6 id="code">Le développement du site</h6>
+    <div class="container">
+        <p>&nbsp;L’objectif de ce site, comme je le disais était de mettre en application mes connaissances, notamment
+            en PHP/Symfony. </p>
+        <li>Côté front :</li>
+        <div class="tools">
+            <div class="tool">
+                <i class="fab fa-html5"></i>
+                <p>HTML</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-css3"></i>
+                <p>CSS</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-bootstrap"></i>
+                <p>Bootstrap</p>
+            </div>
+            <div class="tool">
+                <i class="fas fa-code"></i>
+                <p>Twig</p>
+            </div>
+        </div>
+        <li>Côté back :</li>
+        <div class="tools">
+            <div class="tool">
+                <i class="fab fa-php"></i>
+                <p>PHP</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-symfony"></i>
+                <p>Symfony</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-js"></i>
+                <p>JavaScript</p>
+            </div>
+        </div>
+        <li>Autres outils :</li>
+        <div class="tools">
+            <div class="tool">
+                <i class="fab fa-sass"></i>
+                <p>Sass</p>
+            </div>
+            <div class="tool">
+                <i class="fab fa-git"></i>
+                <p>Git</p>
+            </div>
+        </div>
+    </div>
+    <h6 id="sum-up">Bilan et axes d'amélioration</h6>
+    <div class="container">
+        <p>Pour premier projet back réalisé en solo, j’ai trouvé que je suis pas trop mal débrouillé. Certaines parties
+            furent plus challengeantes que d’autres, notamment la fonctionnalité de recherche qui devait être bien plus
+            poussée qu’elle ne l’est finalement (filtrage avancé, tri par popularité, etc.).
+            <br><br>
+        <p>Si je devais énumérer mes axes d’amélioration pour un prochain projet :</p>
+        <ul>
+            <li>modéliser une base de donnée plus simple, en utilisant moins de tables de jointures</li>
+            <li>faire plus de back</li>
+            <li>faire moins de front. J’ai passé énormément de temps sur le CSS, notamment pour la partie réactive
+                (responsive)</li>
+        </ul>
+        <p>J’ai encore énormément de points à travailler, et ça tombe bien car je suis actuellement à la recherche d’un
+            poste alternance pour une durée d’un an.
+            Elle peut débuter entre le 28 février et le 7 mars 2022. Je recherche en priorité sur la région parisienne.
+        </p>
+        <br><br>
+        <p>N’hésitez pas à consulter <a href="https://docdro.id/BzXikyJ" target="blank">mon CV</a> ou à me contacter <a
+                href="mailto:soufiane.ait@outlook.fr">par mail</a>.</p>
+    </div>
+</section>
+{% endblock %}

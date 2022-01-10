@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ series.title }}{% endblock %}
+
+{% block body %}
+<section class="info">
+    <div class="background">
+        <img class="teaser"src="https://image.tmdb.org/t/p/original{{ series.background }}"
+        alt="">
+    </div>
+    <div class="card">
+        <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ series.poster }}" alt="Affiche de {{ series.title }}">
+        <div class="card-body">
+            <h6>{{ series.title }}</h6>
+            <p class="card-text">{{ series.startYear }}
+                {% if series.endYear %}
+                    - {{ series.endYear }}
+                {% else %}
+                    - aujourd'hui
+                {% endif %}</p>
+        </div>
+    </div>
+</section>
+<section class="watch">
+    <div class="container">
+        <div class="seen">
+            <h6>DÉJA VU</h6>
+            {% if app.user %}
+            <a id="seenSeries" href="{{ path('series_seen', {id: series.id})}}">
+                <i class="bi {{ app.user.isInSeenSeries(series) ? 'bi-eye-fill' : 'bi-eye' }}"></i>
+            </a>
+            {% else %}
+            <a href="/login">
+                <i class="bi bi-eye"></i>
+            </a>
+            {% endif %} 
+        </div>
+        <hr>
+        <div class="watchlist">
+            <h6>WATCHLIST</h6>
+            {% if app.user %}
+            <a id="seriesWatchlist" href="{{ path('series_watchlist', {id: series.id})}}">
+                <i class="bi {{ app.user.isInSeriesWatchlist(series) ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus' }}"></i>
+            </a>
+            {% else %}
+            <a href="/login">
+                <i class="bi bi-bookmark-plus"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="stats">
+        <div class="stat">
+            <h6>MA NOTE</h6>
+            <p>{{ series.myRate }}/5</p>
+        </div>
+        <hr>
+        <div class="stat">
+            <h6>POPULARITÉ*</h6>
+            <p>{{ series.popularity }}%</p>
+        </div>
+        <hr>
+        <div class="stat">
+            <h6>AVIS</h6>
+            <p>{{ comments|length }}</p>
+        </div>
+        <hr>
+        <div class="stat">
+            <h6>FAVORIS</h6>
+            {% if app.user %}
+            <a id="favoriteSeries" href="{{ path('series_favorite', {id: series.id})}}">
+                <i class="bi {{ app.user.isInFavoriteSeries(series) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+            </a>
+            {% else %}
+            <a href="/login">
+                <i class="bi bi-heart"></i>
+            </a>
+            {% endif %}       
+        </div>
+    </div>
+    <p id="popularity">*basé sur <a href="https://developers.themoviedb.org/3/getting-started/introduction">The Movie Database API</a></p>
+
+    <div class="review">
+        <h6>Ma critique</h6>
+        <div id="review" class="container">
+            <cite>&nbsp;"{{ series.myReview }}"</cite>
+        </div>
+    </div>
+
+    <div class="synopsis">
+        <h6>Synopsis</h6>
+        <div class="container">
+            <p>{{ series.synopsis }}</p>
+        </div>
+    </div>
+
+    <div class="details">
+        <h6>Informations</h6>
+        <div class="container">
+            <div class="detail">
+                <h4>{{ series.seasonsCount }}</h4>
+                <h6>saisons</h6>
+            </div>
+            <hr>
+            <div class="detail">
+                <h4>{{ series.episodesCount }}</h4>
+                <h6>épisodes</h6>
+            </div>
+            <hr>
+            <div class="detail">
+                <a href="{{ series.allocineLink }}" target="blank">
+                    <p>Voir sur</p>
+                    <p>Allociné</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="actors">
+        <h6>Casting</h6>
+        <div class="container">
+            <div class="actors">
+                {% for actor in actors %}
+                <div class="actor">
+                    <img src="{{ actor.portrait }}" alt="" class="portrait">
+                    <p>{{ actor.firstName }} {{ actor.lastName }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="comments">
+        <h6>Commentaires</h6>
+        <div class="container">
+            <div class="comment">
+                {% if comments is empty %}
+                <h3><i class="bi bi-emoji-expressionless-fill"></i></h3>
+                <h5>Il n'y a pas encore de commentaires par ici</h5>
+                {% else %}
+                {% for comment in comments %}
+                <div class="postedBy">
+                    <h6>Par&nbsp;</h6>
+                    <h6 id="user"> {{ comment.author.username }}</h6>
+                    <h6 id="date">- le {{ comment.date }} à {{ comment.time }}</h6>
+                </div>
+                <div class="content">
+                    <p>{{ comment.comment }}</p>
+                </div>
+                {% if app.user %}
+                    {% if app.user.username == comment.author.username or is_granted("ROLE_ADMIN") %}
+                    <div class="edit">
+                        {{ include('comment/_delete_form.html.twig') }}
+                    </div>
+                    {% endif %}
+                {% endif %}
+                <hr>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="addComment">
+                <h4>Ajouter un commentaire</h4>
+                {% if app.user %}
+                    {{ include('comment/_form.html.twig') }}
+                {% else %}
+                    <p><strong><a href="/login">Connecte-toi</a> </strong>pour ajouter un commentaire</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

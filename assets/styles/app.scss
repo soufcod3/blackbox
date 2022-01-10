@@ -1,0 +1,25 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: $mainBg !important;
+    color: white;
+}
+
+// Text style
+
+h1 {
+    font-size: 3rem !important;
+}
+
+input, select {
+    font-family: $ubuntuMedium !important;
+}
+
+a {
+    color: white !important;
+}

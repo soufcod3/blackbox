@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username}}{% endblock %}
+
+{% block body %}
+<section class="profile-info">
+    <h2>Mon Espace</h2>
+    <hr>
+    <button class="btn"><a href="/profile">{{ app.user.username }}&nbsp;<i class="bi bi-person-fill"></i></a></button>
+</section>
+<section class="dashboard">
+    <h6><i class="bi bi-bookmark-plus-fill"></i>  Ma watchlist</h6>
+    <div class="boxes">
+        <a href="/profile/series-watchlist">
+            <div class="box">
+                <h2>{{ seriesWatchlist|length }}</h2>
+                <h4>séries</h4>
+            </div>
+        </a>
+        <a href="/profile/movies-watchlist">
+            <div class="box">
+                <h2>{{ moviesWatchlist|length }}</h2>
+                <h4>films</h4>
+            </div>
+        </a>
+    </div>
+    <h6><i class="bi bi-heart-fill"></i>  Mes favoris</h6>
+    <div class="boxes">
+        <a href="/profile/series-favorite">
+            <div class="box">
+                <h2>{{ seriesFavorite|length }}</h2>
+                <h4>séries</h4>
+            </div>
+        </a>
+        <a href="/profile/movies-favorite">
+            <div class="box">
+                <h2>{{ moviesFavorite|length }}</h2>
+                <h4>films</h4>
+            </div>
+        </a>
+    </div>
+    <h6><i class="bi bi-eye-fill"></i>  Déjà regardé</h6>
+    <div class="boxes">
+        <a href="/profile/seen-series">
+            <div class="box">
+                <h2>{{ seenSeries|length }}</h2>
+                <h4>séries</h4>
+            </div>
+        </a>
+        <a href="/profile/seen-movies">
+            <div class="box">
+                <h2>{{ seenMovies|length }}</h2>
+                <h4>films</h4>
+            </div>
+        </a>
+    </div>
+</section>
+
+
+{% endblock %}

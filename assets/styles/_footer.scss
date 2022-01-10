@@ -1,0 +1,44 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+footer {
+    background: $darkBg;
+    text-align: center;
+    padding: 1.5rem;
+    color: $lightText;
+    bottom: 0;
+    .logo {
+        padding: 2rem;
+        font-family: $viga;
+        img {
+            width: 2rem;
+            opacity: 0.4;
+        }
+    }
+    .credits {
+        padding: 1rem;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+        background: $darkBg;
+        .social {
+            text-align: center;
+            margin: 0 1rem;
+        }
+    }
+    h4 {
+        margin: 0;
+    }
+    p {
+        margin: 0;
+        font-size: 0.8rem;
+    }
+
+    @media screen and (min-width: 768px) {
+        p {
+            font-size: 1rem;
+        }
+    }
+}

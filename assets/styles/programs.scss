@@ -1,0 +1,510 @@
+@import "custom.scss";
+@import "~bootstrap/scss/bootstrap";
+
+section.search {
+    color: white !important;
+    background: $darkBg;
+    padding: 2rem 3rem;
+    button {
+        width: 100%;
+    }
+    .btn-blackbox {
+        color: white;
+        background: #21133f;
+    }
+}
+
+section.results {
+    h2 {
+        text-align: center;
+        margin: 2rem 0;
+        color: white;
+    }
+
+    .cards {
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        width: 9rem;
+        background-color: transparent;
+        margin: 0.5rem auto;
+        .card-img-top {
+            outline: 3.5px solid white;
+            border-radius: 3px;
+        }
+        .card-body {
+            background-color: transparent;
+            padding: 0.5rem 0 1rem 0;
+            h6 {
+                color: white;
+                font-family: $ubuntuBold;
+                margin-bottom: 0.2rem;
+            }
+            p {
+                color: $lightText;
+                font-size: 0.85rem;
+                font-family: $ubuntuMedium;
+            }
+        }
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        font-size: 0.8rem;
+        .page-link {
+            background: $darkBg;
+            border-color: transparent;
+            color: $lightText;
+        }
+        .page-item.active .page-link {
+            background: $lightText;
+            color: $darkBg;
+        }
+    }
+    .container {
+        text-align: center;
+        padding: 0 1rem;
+        background: $mainBg;
+        .empty {
+            background: $darkBg;
+            min-height: 10rem;
+            text-align: center;
+            margin-top: 3.5rem;
+            padding: 3rem 2.5rem;
+            color: $lightText;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            i {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
+
+section.info {
+    height: 480px;
+    .teaser {
+        width: 100vw;
+        overflow: hidden;
+        border-bottom: 2px solid $darkBg;
+    }
+    .card {
+        top: -5rem;
+        width: 12rem;
+        background-color: transparent;
+        margin: auto;
+        .card-img-top {
+            outline: 3.5px solid white;
+            border-radius: 3px;
+        }
+        .card-body {
+            text-align: center;
+            background-color: transparent;
+            padding: 0.5rem 0 1rem 0;
+            h6 {
+                color: white;
+                font-family: $ubuntuBold;
+                margin-bottom: 0.2rem;
+            }
+            p {
+                color: $lightText;
+                font-size: 0.85rem;
+                font-family: $ubuntuMedium;
+            }
+        }
+    }
+}
+
+section.watch {
+    padding: 0 7rem;
+    margin-bottom: 1rem;
+    h6, hr {
+        color: $lightText;
+    }
+    .container {
+        height: 3.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: $darkBg;
+        width: 100%;
+        padding: 0;
+        border-radius: 4px;
+        .seen, .watchlist {
+            text-align: center;
+            .bi {
+                filter: $watchFilter;
+            }
+        }
+        h6 {
+            font-size: 0.75rem;
+            margin: 0.5rem 0 0rem 0;
+        }
+        hr {
+            width: 2px;
+            height: 2.5rem;
+        }
+    }
+    
+}
+
+section.content {
+    padding: 0 1rem;
+    h4, p {
+        margin: 0;
+        color: white;
+    }
+    h6, hr {
+        color: $lightText;
+    }
+    .container {
+        background: $darkBg;
+        width: 100%;
+        border-radius: 4px;
+    }
+    .stats {
+        height: 4rem;
+        width: 100%;
+        background-color: $darkBg;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border-radius: 3px;
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            h6 {
+                font-size: 0.75rem;
+                margin: 0.5rem 0 0 0;
+            }
+            .bi {
+                filter: $favoriteFilter;
+            }
+        }
+        hr {
+            width: 2px;
+            height: 3rem;
+        }
+    }
+    #popularity {
+        padding: 0.5rem 0 0 1rem;
+        font-size: 0.8rem;
+        color: $lightText;
+        a {
+            color: $lightText !important;
+        }
+    }
+    .review {
+        margin-top: 1rem;
+        border-radius: 0;
+        #review {
+            background: #462b774f;
+            padding: 0.7rem 1rem;
+            font-size: 1rem;
+            text-align: justify;
+            color: white;
+        }
+    }
+
+    .synopsis {
+        margin: 1.5rem 0;
+        color: $lightText;
+        .container {
+            width: 100%;
+            background: $darkBg;
+            padding: 1rem;
+            p {
+                font-size: 1rem;
+                text-align: justify;
+            }
+        }   
+    }
+
+    .details {
+        margin: 1.5rem 0;
+        color: $lightText;
+        .container {
+            padding: 0;
+            display: flex;
+            justify-content: space-evenly;
+            hr {
+                width: 2px;
+                height: 4rem;
+            }
+            .detail {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                h6 {
+                    font-family: $ubuntuMedium;
+                }
+                p {
+                    font-family: $ubuntuMedium;
+                    color: $lightText;
+                }
+            }
+        }
+    }
+
+    .actors {
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            .actors {
+                display: grid;
+                grid-gap: 1rem;
+                grid-template-columns: repeat(2, 1fr);
+                .actor {
+                    .portrait {
+                        width: 8rem;
+                        outline: 2px solid $lightText;
+                    }
+                    p {
+                        color: $lightText;
+                        text-align: center;
+                        margin: 0;
+                        margin-top: 0.5rem;
+                    }
+                }
+                
+            }
+            
+        }
+    }
+
+    .comments {
+        margin: 1.5rem 0;
+        color: $lightText;
+        h3, h5 {
+            text-align: center;
+        }
+        h5 {
+            margin: 1rem;
+            margin-bottom: 2rem;
+        }
+        .container {
+            padding: 2rem 1rem;
+            .comment {
+                .postedBy {
+                    display: flex;
+                    #user {
+                        color: white;
+                        margin-right: 0.5rem;
+                    }
+                    #date {
+                        font-size: 0.8rem;
+                        line-height: 1.2rem;
+                    }
+                }
+                .content {
+                    padding: 0.5rem;
+                }
+                .edit {
+                    display: flex;
+                    justify-content: flex-end;
+                    button {
+                        margin: 0 0.5rem;
+                        padding: 0.6rem;
+                        p {
+                            font-size: 0.9rem;
+                        }
+                    }
+                    #delete {
+                        background: $deleteBtn;
+                        color: white;
+                    }
+                }
+                .bi-emoji-expressionless-fill {
+                    filter: $lightFilter;
+                }
+                
+            }
+            .addComment {
+                background: $lightBg;
+                padding: 1rem;
+                p {
+                    padding: 0.5rem;
+                }
+                h4 {
+                    margin-bottom: 1rem;
+                }
+                textarea {
+                    margin-top: 1rem;
+                    height: 6rem;
+                }
+                .btn-container {
+                    display: flex;
+                    justify-content: center;
+                }
+                .btn-comment {
+                    background: rgb(82, 31, 83);
+                    color: white;
+                    margin-top: 1rem;
+                    padding: 0.6rem;
+                    width: 100%;
+                }
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width: 768px) {
+    section.search {
+        padding: 3rem 10rem;
+    }
+    section.results {
+        .cards {
+            grid-template-columns: repeat(3, 1fr); 
+            padding: 2rem 5rem;
+        }
+        .card {
+            width: 10rem;
+            .card-body {
+                h6 {
+                    font-size: 1.1rem;
+                }
+                p {
+                    font-size: 1rem;
+                }
+            }
+        }
+        .container {
+            padding: 0 5rem;
+            .empty {
+                min-height: 20rem;
+                padding: 3rem 8rem;
+            }
+        }
+        .pagination {
+            font-size: 1rem;
+        }
+    }
+
+    section.info {
+        height: 600px;
+        .card {
+            top: -13rem;
+        }
+    }
+    section.watch {
+        padding: 0 17rem;
+    }
+    section.content {
+        padding: 1rem 5rem;
+        #popularity {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .container {
+            margin-bottom: 3rem;
+        }
+        .actors {
+            .container {
+                .actors {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    section.search {
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h4 {
+                margin-bottom: 2rem;
+                opacity: 0.5;
+            }
+            .form-group {
+                display: flex;
+                height: 2.5rem;
+                input {
+                    margin-right: 1rem;
+                }
+                #q {
+                    width: 30rem;
+                }
+                #genre {
+                    width: 15rem;
+                }
+                .btn {
+                    width: 10rem;
+                    height: 100%;
+                    margin-left: 1rem;
+                }
+            }
+        }
+    }
+    section.results {
+        padding: 0 10rem;
+        h2 {
+            margin-top: 4rem;
+        }
+        .cards {
+            grid-template-columns: repeat(4, 1fr);
+            width: fit-content;
+            margin: 3rem auto;
+            padding: 0;
+        }
+        .card {
+            width: 11rem;
+            margin: 1rem;
+        }
+        .container {
+            padding: 0 12rem;
+        }
+    }
+    section.info {
+        height: 665px;
+        .background {
+            height: 25rem;
+            overflow: hidden;
+        }
+        .card {
+            top: -6rem;
+            width: 14rem;
+            margin-left: 30%;
+            display: flex;
+            flex-direction: row;
+            .card-body {
+                text-align: start;
+                margin-top: 6rem;
+                margin-left: 1rem;
+                min-width: 28rem;
+                padding: 1rem;
+                h6 {
+                    font-size: 2rem;
+                }
+                p {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+    section.watch {
+        position: absolute;
+        margin-top: -10rem;
+        margin-left: 28%;
+        width: 15rem;
+        .container {
+            width: 15rem;
+        }
+    }
+    section.content {
+        padding: 1rem 28rem;
+    }
+}
