@@ -56,4 +56,20 @@ section.login {
             margin-bottom: 1rem;
         }
     }
+    @media screen and (min-width: 768px) {
+        padding: 2rem 5rem;
+        h2 {
+            padding: 0 3rem;
+        }
+        .container {
+            margin-top: 2rem;
+            padding: 4rem
+        }
+    }
+    @media screen and (min-width: 992px) {
+        padding: 2rem 30rem;
+        h2 {
+            padding: 2rem;
+        }
+    }
 }

@@ -358,3 +358,153 @@ section.content {
 
     }
 }
+
+@media screen and (min-width: 768px) {
+    section.search {
+        padding: 3rem 10rem;
+    }
+    section.results {
+        .cards {
+            grid-template-columns: repeat(3, 1fr); 
+            padding: 2rem 5rem;
+        }
+        .card {
+            width: 10rem;
+            .card-body {
+                h6 {
+                    font-size: 1.1rem;
+                }
+                p {
+                    font-size: 1rem;
+                }
+            }
+        }
+        .container {
+            padding: 0 5rem;
+            .empty {
+                min-height: 20rem;
+                padding: 3rem 8rem;
+            }
+        }
+        .pagination {
+            font-size: 1rem;
+        }
+    }
+
+    section.info {
+        height: 600px;
+        .card {
+            top: -13rem;
+        }
+    }
+    section.watch {
+        padding: 0 17rem;
+    }
+    section.content {
+        padding: 1rem 5rem;
+        #popularity {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .container {
+            margin-bottom: 3rem;
+        }
+        .actors {
+            .container {
+                .actors {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    section.search {
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h4 {
+                margin-bottom: 2rem;
+                opacity: 0.5;
+            }
+            .form-group {
+                display: flex;
+                height: 2.5rem;
+                input {
+                    margin-right: 1rem;
+                }
+                #q {
+                    width: 30rem;
+                }
+                #genre {
+                    width: 15rem;
+                }
+                .btn {
+                    width: 10rem;
+                    height: 100%;
+                    margin-left: 1rem;
+                }
+            }
+        }
+    }
+    section.results {
+        padding: 0 10rem;
+        h2 {
+            margin-top: 4rem;
+        }
+        .cards {
+            grid-template-columns: repeat(4, 1fr);
+            width: fit-content;
+            margin: 3rem auto;
+            padding: 0;
+        }
+        .card {
+            width: 11rem;
+            margin: 1rem;
+        }
+        .container {
+            padding: 0 12rem;
+        }
+    }
+    section.info {
+        height: 665px;
+        .background {
+            height: 25rem;
+            overflow: hidden;
+        }
+        .card {
+            top: -6rem;
+            width: 14rem;
+            margin-left: 30%;
+            display: flex;
+            flex-direction: row;
+            .card-body {
+                text-align: start;
+                margin-top: 6rem;
+                margin-left: 1rem;
+                min-width: 28rem;
+                padding: 1rem;
+                h6 {
+                    font-size: 2rem;
+                }
+                p {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+    section.watch {
+        position: absolute;
+        margin-top: -10rem;
+        margin-left: 28%;
+        width: 15rem;
+        .container {
+            width: 15rem;
+        }
+    }
+    section.content {
+        padding: 1rem 28rem;
+    }
+}

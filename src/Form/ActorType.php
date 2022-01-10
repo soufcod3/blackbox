@@ -15,8 +15,6 @@ class ActorType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('portrait')
-            ->add('series')
-            ->add('movies')
         ;
     }
 

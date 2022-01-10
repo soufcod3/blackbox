@@ -39,7 +39,7 @@ class MovieController extends AbstractController
         $movies = $paginator->paginate(
             $movies,
             $request->query->getInt('page', 1),
-            6 //limit
+            12 //limit
         );
 
         return $this->render('movie/index.html.twig', [

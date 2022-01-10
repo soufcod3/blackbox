@@ -9,9 +9,14 @@
         font-size: 1rem;
         padding: 0;
     }
+    ul {
+        .left {
+            text-align: center;
+        }
+    }
     hr {
         height: 2px;
-        width: 40%;
+        width: 100%;
         color: $lightText;
     }
     .btn {
@@ -60,6 +65,25 @@
             filter: $lightFilter;
             font-size: 1.5rem;
             margin-right: 0.5rem;
+        }
+    }
+    @media screen and (min-width: 992px) {
+        padding: 0 4rem;
+        width: 100%;
+        .navbar-collapse {
+            justify-content: space-between;
+            ul {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .left {
+                    display: flex;
+                    margin-left: 2rem;
+                }
+            }
+        }
+        hr {
+            display: none;
         }
     }
 }

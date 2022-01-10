@@ -4,8 +4,10 @@
 
 {% block body %}
 <section class="info">
-    <img class="teaser"src="https://image.tmdb.org/t/p/original{{ series.background }}"
+    <div class="background">
+        <img class="teaser"src="https://image.tmdb.org/t/p/original{{ series.background }}"
         alt="">
+    </div>
     <div class="card">
         <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ series.poster }}" alt="Affiche de {{ series.title }}">
         <div class="card-body">

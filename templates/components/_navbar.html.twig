@@ -10,27 +10,31 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/about">A Propos</a>
-      </li>
-      <hr>
-      <li class="nav-item">
-        <a class="nav-link" href="/series">Séries</a>
-      </li>
-      <hr>
-      <li class="nav-item">
-        <a class="nav-link" href="/movies">Films</a>
-      </li>
-      <hr>
-      {% if app.user %}
-      <div>
-        <a href="/profile"><button class="btn btn-profile"><i class="bi bi-person-fill"></i>&nbsp;&nbsp;{{ app.user.username }}
-        </button></a>
-        <a href="{{ path('app_logout') }}"><button class="btn btn-logout"><i class="bi bi-box-arrow-right"></i></button></a>
+      <div class="left">
+        <li class="nav-item">
+          <a class="nav-link" href="/about">A Propos</a>
+        </li>
+        <hr>
+        <li class="nav-item">
+          <a class="nav-link" href="/series">Séries</a>
+        </li>
+        <hr>
+        <li class="nav-item">
+          <a class="nav-link" href="/movies">Films</a>
+        </li>
+        <hr>
       </div>
-      {% else %}
-      <a href="{{ path('login') }}"><button class="btn btn-login">Se connecter</button></a>
-      {% endif %}
+      <div class="right">
+        {% if app.user %}
+        <div>
+          <a href="/profile"><button class="btn btn-profile"><i class="bi bi-person-fill"></i>&nbsp;&nbsp;{{ app.user.username }}
+          </button></a>
+          <a href="{{ path('app_logout') }}"><button class="btn btn-logout"><i class="bi bi-box-arrow-right"></i></button></a>
+        </div>
+        {% else %}
+        <a href="{{ path('login') }}"><button class="btn btn-login">Se connecter</button></a>
+        {% endif %}
+      </div>
     </ul>
   </div>
 </nav>

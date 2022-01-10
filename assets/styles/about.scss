@@ -84,3 +84,44 @@ section.about-content {
         }
     }
 }
+
+@media screen and (min-width: 768px) {
+    h3.about {
+        margin: 5rem 0;
+    }
+    section.chapter {
+        padding: 0 5rem;
+    }
+    section.about-content {
+        padding: 0 5rem;
+        margin-bottom: 2rem;
+        .illustration {
+            height: 28rem;
+        }
+        h6 {
+            padding-top: 2rem;
+        }
+    }
+    .container {
+        .tools {
+            justify-content: flex-start ;
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    section.chapter {
+        padding: 0 15rem;
+    }
+    section.about-content {
+        padding: 0 20rem;
+        h6 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .illustration {
+            margin-top: 2rem;
+            height: 37rem;
+        }
+    }
+}

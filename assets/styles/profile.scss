@@ -105,3 +105,57 @@ section.collection {
 
     }
 }
+
+@media screen and (min-width: 768px) {
+    section.dashboard {
+        padding: 5rem;
+        .boxes {
+            justify-content: center;
+            .box {
+                width: 10rem;
+            }
+        }
+    }
+    section.collection {
+        padding: 3rem 7rem;
+        .container {
+            min-height: 22rem;
+            padding: 2rem;
+            .empty {
+                margin-top: 5.5rem;
+                padding: 0 6rem
+            }
+            .cards {
+                .card {
+                    width: 8rem;
+                    .card-body {
+                        h6 {
+                            font-size: 1.1rem;
+                        }
+                        p {
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    section.dashboard {
+        padding: 2rem 5rem;
+    }
+    section.collection {
+        padding: 3rem 20rem;
+        .container {
+            padding: 3rem 2rem;
+            width: fit-content;
+            .cards {
+                .card {
+                    margin: 0 2rem;
+                }
+            }
+        }
+    }
+}
