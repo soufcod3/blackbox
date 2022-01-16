@@ -13,7 +13,7 @@ h3.about {
     margin-bottom: 1rem;
     li {
         margin-bottom: 1rem;
-        font-family: $ubuntuMedium;
+        font-family: $ubuntuRegular;
         color: $lightText;
     }
     .tools {
@@ -41,9 +41,20 @@ h3.about {
 #check {
     background-color: transparent;
     margin-bottom: 0;
-    li {
-        color: white;
+    ul {
+        a {
+            text-decoration: none;
+        }
+        li {
+            color: white;
+        }
+        ul {
+            li {
+                color: $lightText;
+            }
+        }
     }
+    
 }
 #hr-about {
     width: 70%;
@@ -65,6 +76,7 @@ section.about-content {
     color: white;
     h6 {
         padding-top: 1rem;
+        font-size: 1.5rem;
     }
     p {
         margin: 0;
