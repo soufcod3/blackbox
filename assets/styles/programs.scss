@@ -7,6 +7,7 @@ section.search {
     padding: 2rem 3rem;
     button {
         width: 100%;
+        font-family: $ubuntuRegular !important;
     }
     .btn-blackbox {
         color: white;
@@ -54,6 +55,7 @@ section.results {
         display: flex;
         justify-content: center;
         font-size: 0.8rem;
+        font-family: $ubuntuRegular;
         .page-link {
             background: $darkBg;
             border-color: transparent;
@@ -205,6 +207,7 @@ section.content {
     .review {
         margin-top: 1rem;
         border-radius: 0;
+        font-family: $ubuntuRegular;
         #review {
             background: #462b774f;
             padding: 0.7rem 1rem;
@@ -477,7 +480,7 @@ section.content {
         .card {
             top: -6rem;
             width: 14rem;
-            margin-left: 30%;
+            margin-left: 33%;
             display: flex;
             flex-direction: row;
             .card-body {
@@ -498,7 +501,7 @@ section.content {
     section.watch {
         position: absolute;
         margin-top: -10rem;
-        margin-left: 28%;
+        margin-left: 32%;
         width: 15rem;
         .container {
             width: 15rem;
@@ -507,7 +510,7 @@ section.content {
     section.content {
         padding: 1rem 15rem;
         .stats, .review, .synopsis, .details, .actors, .comments, #popularity {
-            max-width: 35rem;
+            max-width: 40rem;
             margin: 0 auto;
         }
         #popularity {
