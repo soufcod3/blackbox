@@ -45,7 +45,7 @@ class Movie
     private $background;
 
     /**
-     * @ORM\Column(type="integer", length=255)
+     * @ORM\Column(type="float", length=255)
      */
     private $myRate;
 
