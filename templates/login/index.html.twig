@@ -6,6 +6,13 @@
 <section class="login">
     <h2>Connecte-toi à ton espace personnel</h2>
     <div class="container">
+        {% for category, messages in app.flashes %}
+        {% for message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endfor %}
         <form class="login-form" method="post">
             <label for="inputUsername">Nom d'utilisateur:</label>
             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control"
@@ -14,7 +21,7 @@
             <input type="password" name="password" id="inputPassword" class="form-control"
                 autocomplete="current-password" required>
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"<>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" <>
             <div class="submit-container">
                 <button type="submit" class="btn btn-login">Me connecter</button>
             </div>
