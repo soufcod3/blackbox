@@ -8,6 +8,7 @@ use App\Entity\Movie;
 use App\Form\CommentType;
 use App\Form\MovieType;
 use App\Form\SearchType;
+use App\Repository\CommentRepository;
 use App\Repository\MovieRepository;
 use App\Service\CallApiService;
 use App\Service\Slugify;
@@ -221,12 +222,17 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_USER")
-     * @Route("/{id}", name="movie_delete", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{id}/delete", name="movie_delete", methods={"POST"})
      */
-    public function delete(Request $request, Movie $movie, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Movie $movie, EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
+        $comments = $commentRepository->findBy(['movie' => $movie->getId()]);
+        
         if ($this->isCsrfTokenValid('delete' . $movie->getId(), $request->request->get('_token'))) {
+            foreach ($comments as $comment) {
+                $entityManager->remove($comment);
+            }
             $entityManager->remove($movie);
             $entityManager->flush();
         }
