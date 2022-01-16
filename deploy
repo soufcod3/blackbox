@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av ./ u105109339@access875757172.webspace-data.io:~/blackbox --include=public/build --exclude-from=.gitignore --exclude=".*"

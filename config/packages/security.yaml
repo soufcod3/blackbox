@@ -20,13 +20,12 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            form_login:
-                # "login" is the name of the route created previously
-                login_path: login
-                check_path: login
             logout:
                 path: app_logout
-
+            custom_authenticator: App\Security\LoginFormAuthenticator
+    role_hierarchy:
+        ROLE_CONTRIBUTOR: ROLE_USER
+        ROLE_ADMIN: ROLE_CONTRIBUTOR
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -38,6 +37,7 @@ security:
     access_control:
         - { path: ^/series/new, roles: ROLE_ADMIN }
         - { path: ^/series/[a-z-]+/edit, roles: ROLE_ADMIN }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
 when@test:
     security:

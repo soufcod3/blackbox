@@ -67,7 +67,10 @@ section.login {
         }
     }
     @media screen and (min-width: 992px) {
-        padding: 2rem 30rem;
+        padding: 2rem 10rem;
+        .container {
+            max-width: 25rem;
+        }
         h2 {
             padding: 2rem;
         }

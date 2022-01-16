@@ -50,7 +50,7 @@ class Series
     private $background;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", length=255)
      */
     private $myRate;
 

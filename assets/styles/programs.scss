@@ -505,6 +505,13 @@ section.content {
         }
     }
     section.content {
-        padding: 1rem 28rem;
+        padding: 1rem 15rem;
+        .stats, .review, .synopsis, .details, .actors, .comments, #popularity {
+            max-width: 35rem;
+            margin: 0 auto;
+        }
+        #popularity {
+            margin-bottom: 2rem;
+        }
     }
 }

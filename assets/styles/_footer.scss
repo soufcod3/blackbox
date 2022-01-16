@@ -9,7 +9,9 @@ footer {
     bottom: 0;
     .logo {
         padding: 2rem;
-        font-family: $viga;
+        h4 {
+            font-family: $viga;
+        }
         img {
             width: 2rem;
             opacity: 0.4;
