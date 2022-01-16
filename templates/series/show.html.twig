@@ -5,18 +5,18 @@
 {% block body %}
 <section class="info">
     <div class="background">
-        <img class="teaser"src="https://image.tmdb.org/t/p/original{{ series.background }}"
-        alt="">
+        <img class="teaser" src="https://image.tmdb.org/t/p/original{{ series.background }}" alt="">
     </div>
     <div class="card">
-        <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ series.poster }}" alt="Affiche de {{ series.title }}">
+        <img class="card-img-top" src="https://image.tmdb.org/t/p/original{{ series.poster }}"
+            alt="Affiche de {{ series.title }}">
         <div class="card-body">
             <h6>{{ series.title }}</h6>
             <p class="card-text">{{ series.startYear }}
                 {% if series.endYear %}
-                    - {{ series.endYear }}
+                - {{ series.endYear }}
                 {% else %}
-                    - aujourd'hui
+                - aujourd'hui
                 {% endif %}</p>
         </div>
     </div>
@@ -33,14 +33,15 @@
             <a href="/login">
                 <i class="bi bi-eye"></i>
             </a>
-            {% endif %} 
+            {% endif %}
         </div>
         <hr>
         <div class="watchlist">
             <h6>WATCHLIST</h6>
             {% if app.user %}
             <a id="seriesWatchlist" href="{{ path('series_watchlist', {id: series.id})}}">
-                <i class="bi {{ app.user.isInSeriesWatchlist(series) ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus' }}"></i>
+                <i
+                    class="bi {{ app.user.isInSeriesWatchlist(series) ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus' }}"></i>
             </a>
             {% else %}
             <a href="/login">
@@ -77,10 +78,11 @@
             <a href="/login">
                 <i class="bi bi-heart"></i>
             </a>
-            {% endif %}       
+            {% endif %}
         </div>
     </div>
-    <p id="popularity">*basé sur <a href="https://developers.themoviedb.org/3/getting-started/introduction">The Movie Database API</a></p>
+    <p id="popularity">*basé sur <a href="https://developers.themoviedb.org/3/getting-started/introduction">The Movie
+            Database API</a></p>
 
     <div class="review">
         <h6>Ma critique</h6>
@@ -150,11 +152,11 @@
                     <p>{{ comment.comment }}</p>
                 </div>
                 {% if app.user %}
-                    {% if app.user.username == comment.author.username or is_granted("ROLE_ADMIN") %}
-                    <div class="edit">
-                        {{ include('comment/_delete_form.html.twig') }}
-                    </div>
-                    {% endif %}
+                {% if app.user.username == comment.author.username or is_granted("ROLE_ADMIN") %}
+                <div class="edit">
+                    {{ include('comment/_delete_form.html.twig') }}
+                </div>
+                {% endif %}
                 {% endif %}
                 <hr>
                 {% endfor %}
@@ -163,12 +165,15 @@
             <div class="addComment">
                 <h4>Ajouter un commentaire</h4>
                 {% if app.user %}
-                    {{ include('comment/_form.html.twig') }}
+                {{ include('comment/_form.html.twig') }}
                 {% else %}
-                    <p><strong><a href="/login">Connecte-toi</a> </strong>pour ajouter un commentaire</p>
+                <p><strong><a href="/login">Connecte-toi</a> </strong>pour ajouter un commentaire</p>
                 {% endif %}
             </div>
         </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        {% include "series/_delete_form.html.twig" %}
+        {% endif %}
     </div>
 </section>
 {% endblock %}

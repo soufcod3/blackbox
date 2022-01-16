@@ -9,6 +9,7 @@ use App\Entity\Category;
 use App\Form\CommentType;
 use App\Form\SearchType;
 use App\Form\SeriesType;
+use App\Repository\CommentRepository;
 use App\Repository\SeriesRepository;
 use App\Service\CallApiService;
 use App\Service\Slugify;
@@ -229,12 +230,17 @@ class SeriesController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_USER")
-     * @Route("/{id}", name="series_delete", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{id}/delete", name="series_delete", methods={"POST"})
      */
-    public function delete(Request $request, Series $series, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Series $series, EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
+        $comments = $commentRepository->findBy(['series' => $series->getId()]);
+        
         if ($this->isCsrfTokenValid('delete' . $series->getId(), $request->request->get('_token'))) {
+            foreach ($comments as $comment) {
+                $entityManager->remove($comment);
+            }
             $entityManager->remove($series);
             $entityManager->flush();
         }

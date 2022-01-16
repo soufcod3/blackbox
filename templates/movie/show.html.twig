@@ -142,6 +142,9 @@
                 {% endif %}
             </div>
         </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        {% include "movie/_delete_form.html.twig" %}
+        {% endif %}
     </div>
 </section>
 {% endblock %}
